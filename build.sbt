@@ -1,4 +1,4 @@
-name := "Chat"
+name := "User"
 
 version := "0.0.1-SNAPSHOT"
 
@@ -28,6 +28,9 @@ libraryDependencies ++= {
     "commons-cli" % "commons-cli" % "1.4",
     "io.jsonwebtoken" % "jjwt" % "0.7.0",
     "org.reactivemongo" %% "reactivemongo" %  "0.12.7",
-    "org.reactivemongo" %% "reactivemongo-play-json" %  "0.12.7-play26"
+    "org.reactivemongo" %% "reactivemongo-play-json" %  "0.12.7-play26",
+    "com.jason-goodwin" %% "authentikat-jwt" % "0.4.1",
+    "org.scalaj" %% "scalaj-http" % "2.3.0",
+    "org.neo4j.driver" % "neo4j-java-driver" % "1.0.4"
  )
 }
