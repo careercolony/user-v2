@@ -37,4 +37,7 @@ object Application {
   val connection = parsedUri.map(driver.connection)
   val futureConnection = Future.fromTry(connection)
 
+
+  val topic: String = config.getString("kafka.topic")
+  val brokers: String = config.getString("kafka.brokers")
 }

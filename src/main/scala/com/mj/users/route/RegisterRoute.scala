@@ -17,10 +17,10 @@ import org.json4s.DefaultFormats
 import org.json4s.native.JsonMethods.parse
 import org.slf4j.LoggerFactory
 import spray.json._
-
+import com.mj.users.mongo.KafkaAccess
 import scala.util.{Failure, Success}
 
-trait RegisterRoute {
+trait RegisterRoute extends KafkaAccess{
   val registerUserLog = LoggerFactory.getLogger(this.getClass.getName)
 
 
@@ -54,7 +54,9 @@ trait RegisterRoute {
                               case 201 => {
                                 val parsedResp: TokenDetails = parse(res.body.toString).extract[TokenDetails]
                                 val token = CommonUtils.createToken("HS256", parsedResp.key, parsedResp.secret)
+                                sendPostToKafka(s.toJson.toString)
                                 respondWithHeader(RawHeader("token", token)) {
+                                  sendPostToKafka(s.toJson.toString)
                                   complete(HttpResponse(entity = HttpEntity(MediaTypes.`application/json`, s.toJson.toString)))
                                 }
                               }

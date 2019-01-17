@@ -31,6 +31,8 @@ libraryDependencies ++= {
     "org.reactivemongo" %% "reactivemongo-play-json" %  "0.12.7-play26",
     "com.jason-goodwin" %% "authentikat-jwt" % "0.4.1",
     "org.scalaj" %% "scalaj-http" % "2.3.0",
-    "org.neo4j.driver" % "neo4j-java-driver" % "1.0.4"
+    "org.neo4j.driver" % "neo4j-java-driver" % "1.0.4",
+    "com.typesafe.akka" %% "akka-stream-kafka" % "0.11-M2"
+
  )
 }
