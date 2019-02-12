@@ -34,7 +34,7 @@ class JWTConsumerRemoval extends Actor  with DiagnosticActorLogging {
         user <- userDetails
         response <- Future{Http(kongAdminURL +"consumers/" + user.get.registerDto.email + "/jwt").header("Content-Type", "application/json").asString}
         parsedResp <- Future{parse(response.body.toString).extract[listConsumerDetails]}
-        id <- Future{parsedResp.data.filter(details => details.consumer_id == consumerId).head.id}
+        id <- Future{parsedResp.data.filter(details => details.id == consumerId).head.id}
         resp <- Future{Http(kongAdminURL +"consumers/" + user.get.registerDto.email + "/jwt/" + id).method("DELETE").header("Content-Type", "application/json").asString}
         _ = origin ! resp
       } yield()

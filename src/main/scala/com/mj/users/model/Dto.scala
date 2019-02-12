@@ -76,8 +76,8 @@ case class Interest(memberID: String, interest: Option[String])
 //Update Personal Info
 case class PersonalInfo(memberID: String, contact_info : ContactInfo)
 
-
-case class TokenDetails(consumer_id : String , created_at : Long , id : String , key : String , secret : String ,algorithm : Option[String])
+case class TokenID(id : String)
+case class TokenDetails(rsa_public_key : String , consumer : Option[TokenID] , created_at : Long , id : String , key : String , secret : String ,algorithm : Option[String])
 
 case class ConsumerDetails(userName : String , created_at : Long , id : String )
 
@@ -100,7 +100,8 @@ object JsonRepo extends DefaultJsonProtocol with SprayJsonSupport {
   implicit val secondSignupStepsFormats: RootJsonFormat[SecondSignupStep] = jsonFormat20(SecondSignupStep)
   implicit val interestFormats: RootJsonFormat[Interest] = jsonFormat2(Interest)
   implicit val personalInfoFormats: RootJsonFormat[PersonalInfo] = jsonFormat2(PersonalInfo)
-  implicit val tokenDetailsFormats: RootJsonFormat[TokenDetails] = jsonFormat6(TokenDetails)
+  implicit val tokenIDFormats: RootJsonFormat[TokenID] = jsonFormat1(TokenID)
+  implicit val tokenDetailsFormats: RootJsonFormat[TokenDetails] = jsonFormat7(TokenDetails)
   implicit val consumerFormats: RootJsonFormat[Consumer] = jsonFormat1(Consumer)
   implicit val consumerDetailsFormats: RootJsonFormat[ConsumerDetails] = jsonFormat3(ConsumerDetails)
   implicit val consumerDetailsListFormats: RootJsonFormat[listConsumerDetails] = jsonFormat2(listConsumerDetails)
