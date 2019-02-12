@@ -28,7 +28,7 @@ trait LogoutRoute {
     implicit val timeout = Timeout(20, TimeUnit.SECONDS)
     val JWTConsumerRemoval = system.actorSelection("/*/JWTConsumerRemoval")
 
-    path("api" / "logoutUser") {
+    path("user" / "logoutUser") {
       post {
         entity(as[UidDto]) { dto =>
           headerValueByName("X-Consumer-Id") {

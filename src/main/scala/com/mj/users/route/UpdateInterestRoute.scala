@@ -26,7 +26,7 @@ trait UpdateInterestRoute {
     val updateInterestProcessor = system.actorSelection("/*/updateInterestProcessor")
     implicit val timeout = Timeout(20, TimeUnit.SECONDS)
 
-    path("api" / "update-interest") {
+    path("user" / "update-interest") {
       post {
         entity(as[Interest]) { dto =>
           val updateResponse = updateInterestProcessor ? dto

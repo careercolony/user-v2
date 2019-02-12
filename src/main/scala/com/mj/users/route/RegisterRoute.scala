@@ -31,7 +31,7 @@ trait RegisterRoute extends KafkaAccess{
     val JWTConsumerCreation = system.actorSelection("/*/JWTConsumerCreation")
     val JWTCredentialsCreation = system.actorSelection("/*/JWTCredentialsCreation")
 
-    path("api" / "registerUser") {
+    path("user" / "registerUser") {
       post {
         entity(as[RegisterDto]) { dto =>
           val validatorResp = SchedulingValidator.validateRegisterUserRequest(dto)

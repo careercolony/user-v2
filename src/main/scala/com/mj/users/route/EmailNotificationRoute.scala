@@ -27,7 +27,7 @@ trait EmailNotificationRoute {
     implicit val timeout = Timeout(20, TimeUnit.SECONDS)
 
 
-    path("verify-email" / "memberID" / Segment)  { (memberID: String) =>
+    path("user" / "verify-email" / "memberID" / Segment)  { (memberID: String) =>
       get {
 
         val emailNotificationResponse = emailNotificationUserProcessor ? memberID

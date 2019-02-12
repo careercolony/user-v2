@@ -26,7 +26,7 @@ trait GetEmployeePositionRoute {
     val getEmployeePositionProcessor = system.actorSelection("/*/getEmployeePositionProcessor")
     implicit val timeout = Timeout(20, TimeUnit.SECONDS)
 
-    path("api" / "get-titles") {
+    path("user" / "get-titles") {
       get {
          val updateResponse = getEmployeePositionProcessor ? "getPositionDetails"
           onComplete(updateResponse) {
