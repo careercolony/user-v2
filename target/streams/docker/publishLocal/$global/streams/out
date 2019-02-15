@@ -1,0 +1,44 @@
+[0m[[0mdebug[0m] [0mExecuting Native docker build --force-rm -t careercolony/akka-http-docker-user-api:0.0.1-SNAPSHOT .[0m
+[0m[[0mdebug[0m] [0mWorking directory /Users/carlnjoku/scala/clients/careercolonyV2/user-v2/target/docker/stage[0m
+[0m[[0minfo[0m] [0mSending build context to Docker daemon   76.6MB[0m
+[0m[[0minfo[0m] [0mStep 1/7 : FROM openjdk:jre-alpine[0m
+[0m[[0minfo[0m] [0mjre-alpine: Pulling from library/openjdk[0m
+[0m[[0minfo[0m] [0m8e3ba11ec2a2: Pulling fs layer[0m
+[0m[[0minfo[0m] [0m311ad0da4533: Pulling fs layer[0m
+[0m[[0minfo[0m] [0m391a6a6b3651: Pulling fs layer[0m
+[0m[[0minfo[0m] [0m311ad0da4533: Verifying Checksum[0m
+[0m[[0minfo[0m] [0m311ad0da4533: Download complete[0m
+[0m[[0minfo[0m] [0m8e3ba11ec2a2: Download complete[0m
+[0m[[0minfo[0m] [0m8e3ba11ec2a2: Pull complete[0m
+[0m[[0minfo[0m] [0m311ad0da4533: Pull complete[0m
+[0m[[0minfo[0m] [0m391a6a6b3651: Verifying Checksum[0m
+[0m[[0minfo[0m] [0m391a6a6b3651: Download complete[0m
+[0m[[0minfo[0m] [0m391a6a6b3651: Pull complete[0m
+[0m[[0minfo[0m] [0mDigest: sha256:1bed44170948277881d88481ecbd07317eb7bae385560a9dd597bbfe02782766[0m
+[0m[[0minfo[0m] [0mStatus: Downloaded newer image for openjdk:jre-alpine[0m
+[0m[[0minfo[0m] [0m ---> ccfb0c83b2fe[0m
+[0m[[0minfo[0m] [0mStep 2/7 : WORKDIR /opt/docker[0m
+[0m[[0minfo[0m] [0m ---> Running in 4436b9a48a0d[0m
+[0m[[0minfo[0m] [0mRemoving intermediate container 4436b9a48a0d[0m
+[0m[[0minfo[0m] [0m ---> 39537766df78[0m
+[0m[[0minfo[0m] [0mStep 3/7 : ADD opt /opt[0m
+[0m[[0minfo[0m] [0m ---> 1825e5818d84[0m
+[0m[[0minfo[0m] [0mStep 4/7 : RUN ["chown", "-R", "daemon:daemon", "."][0m
+[0m[[0minfo[0m] [0m ---> Running in 3ead12af9bd4[0m
+[0m[[0minfo[0m] [0mRemoving intermediate container 3ead12af9bd4[0m
+[0m[[0minfo[0m] [0m ---> 88f06420521a[0m
+[0m[[0minfo[0m] [0mStep 5/7 : USER daemon[0m
+[0m[[0minfo[0m] [0m ---> Running in 0c0bf926bb08[0m
+[0m[[0minfo[0m] [0mRemoving intermediate container 0c0bf926bb08[0m
+[0m[[0minfo[0m] [0m ---> 16625ad28555[0m
+[0m[[0minfo[0m] [0mStep 6/7 : ENTRYPOINT ["bin/user"][0m
+[0m[[0minfo[0m] [0m ---> Running in 17b817086a90[0m
+[0m[[0minfo[0m] [0mRemoving intermediate container 17b817086a90[0m
+[0m[[0minfo[0m] [0m ---> 4f936ad32d74[0m
+[0m[[0minfo[0m] [0mStep 7/7 : CMD [][0m
+[0m[[0minfo[0m] [0m ---> Running in 56cd738b3133[0m
+[0m[[0minfo[0m] [0mRemoving intermediate container 56cd738b3133[0m
+[0m[[0minfo[0m] [0m ---> e2f251e7d64e[0m
+[0m[[0minfo[0m] [0mSuccessfully built e2f251e7d64e[0m
+[0m[[0minfo[0m] [0mSuccessfully tagged careercolony/akka-http-docker-user-api:0.0.1-SNAPSHOT[0m
+[0m[[0minfo[0m] [0mBuilt image careercolony/akka-http-docker-user-api:0.0.1-SNAPSHOT[0m
