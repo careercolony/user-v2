@@ -56,7 +56,7 @@ trait LoginRoute {
                               }
 
                             }
-                            case 400 =>
+                            case _ =>
                               complete(HttpResponse(status = BadRequest, entity = HttpEntity(MediaTypes.`application/json`, responseMessage("", res.body, "").toJson.toString)))
                           }
                         }
