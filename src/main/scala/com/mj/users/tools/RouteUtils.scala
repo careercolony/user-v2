@@ -11,7 +11,8 @@ import com.mj.users.config.Application._
 import scala.concurrent.{ExecutionContext, Future}
 
 object RouteUtils extends RegisterRoute with LoginRoute with LogoutRoute with SignupStepsRoute
-  with UpdateInterestRoute with UpdateInfoRoute with EmailNotificationRoute with UpdatePasswordRoute  with ForgotPasswordRoute{
+  with UpdateInterestRoute with UpdateInfoRoute with EmailNotificationRoute with UpdatePasswordRoute  with ForgotPasswordRoute
+with DeleteUserRoute{
 
 /*  createUsersCollection()
   createOnlinesCollection()*/
@@ -79,7 +80,8 @@ object RouteUtils extends RegisterRoute with LoginRoute with LogoutRoute with Si
                  system: ActorSystem,
                  materializer: ActorMaterializer) = {
      routeLogin(system) ~ routeLogout(system) ~ routeRegister(system) ~
-       signupStepsRoute(system) ~ updateInterestRoute(system) ~ updateInfoRoute(system) ~ emailNotification(system) ~ updatePassword(system) ~ forgotPassword(system)
+       signupStepsRoute(system) ~ updateInterestRoute(system) ~ updateInfoRoute(system) ~ emailNotification(system) ~ updatePassword(system) ~ forgotPassword(system) ~
+    deleteUser(system)
   }
 
   def logRoute(implicit ec: ExecutionContext,

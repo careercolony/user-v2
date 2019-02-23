@@ -203,6 +203,17 @@ object UserDao {
 
   }
 
+  def updateUserStatusFlag(memberID : String): Future[String] = {
+
+    update(usersCollection, {
+      BSONDocument("_id" -> memberID)
+    }, {
+      BSONDocument(
+        "$set" -> BSONDocument("status" -> deleted))
+    }).map(resp => resp)
+
+  }
+
   //update user online status
   def updateOnline(uid: String) = {
     val selector = document("uid" -> uid)
