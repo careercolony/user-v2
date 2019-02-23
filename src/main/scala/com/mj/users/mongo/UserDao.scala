@@ -11,7 +11,7 @@ import reactivemongo.api.collections.bson.BSONCollection
 import reactivemongo.bson._
 
 import scala.concurrent.Future
-
+import com.mj.users.config.Application._
 object UserDao {
 
   val usersCollection: Future[BSONCollection] = db.map(_.collection[BSONCollection]("users"))
@@ -58,7 +58,7 @@ object UserDao {
         userRequest.copy(password = sha1(userRequest.password), repassword = sha1(userRequest.password))
       }
       userData <- Future {
-        DBRegisterDto(BSONObjectID.generate().stringify, avatar, prepareUseRequest, None, None, None, None, None, None, None)
+        DBRegisterDto(BSONObjectID.generate().stringify, active ,avatar, prepareUseRequest, None, None, None, None, None, None, None)
       }
       response <- insert[DBRegisterDto](usersCollection, userData).map {
         resp => RegisterDtoResponse(resp._id, resp.registerDto.firstname, resp.registerDto.lastname, resp.registerDto.email, resp.avatar)
@@ -71,12 +71,12 @@ object UserDao {
 
   def getUserDetails(userRequest: RegisterDto): Future[Option[DBRegisterDto]] = {
     search[DBRegisterDto](usersCollection,
-      document("registerDto.email" -> userRequest.email))
+      document("registerDto.email" -> userRequest.email ,"status" -> active))
   }
 
   def getUserDetailsById(id: String): Future[Option[DBRegisterDto]] = {
     search[DBRegisterDto](usersCollection,
-      document("_id" -> id))
+      document("_id" -> id  ,"status" -> active))
 
   }
 
@@ -128,6 +128,7 @@ object UserDao {
       Future {
         Education(
           BSONObjectID.generate().stringify,
+          active ,
           secondStepRequest.memberID,
           secondStepRequest.school_name,
           secondStepRequest.field_of_study,
@@ -144,6 +145,7 @@ object UserDao {
       Future {
         Experience(
           BSONObjectID.generate().stringify,
+          active,
           secondStepRequest.memberID,
           secondStepRequest.position,
           secondStepRequest.career_level,
@@ -186,7 +188,7 @@ object UserDao {
   def forgotPasswordDetails(forgotPasswordDto: ForgotPasswordDto):  Future[Option[DBRegisterDto]]  = {
 
     search[DBRegisterDto](usersCollection,
-      document("registerDto.email" -> forgotPasswordDto.email))
+      document("registerDto.email" -> forgotPasswordDto.email , "status" -> active))
 
   }
 

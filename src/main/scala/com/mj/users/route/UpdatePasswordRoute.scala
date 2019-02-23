@@ -30,7 +30,7 @@ trait UpdatePasswordRoute extends KafkaAccess{
     implicit val timeout = Timeout(20, TimeUnit.SECONDS)
 
 
-    path("user" / "updatePassword") {
+    path("updatePassword") {
       post {
         entity(as[UpdatePasswordDto]) { dto =>
           val validatorResp = SchedulingValidator.validateUpdatePasswordUserRequest(dto)

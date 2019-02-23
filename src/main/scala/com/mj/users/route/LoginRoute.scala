@@ -30,7 +30,7 @@ trait LoginRoute {
     val JWTCredentialsCreation = system.actorSelection("/*/JWTCredentialsCreation")
     implicit val timeout = Timeout(20, TimeUnit.SECONDS)
 
-    path("user" / "loginUser") {
+    path("loginUser") {
       println("here")
       post {
         entity(as[LoginDto]) { dto =>

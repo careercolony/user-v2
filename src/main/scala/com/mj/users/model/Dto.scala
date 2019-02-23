@@ -25,7 +25,7 @@ case class loginHistory(memberID: String, user_agent: Option[String], location: 
 case class RegisterDtoResponse(memberID: String, firstname: String, lastname: String, email: String, avatar: String)
 
 //RegisterDto DB user case class
-case class DBRegisterDto(var _id: String, avatar: String,
+case class DBRegisterDto(var _id: String, status : String ,avatar: String,
                          registerDto: RegisterDto,
                          experience: Option[userExperience], /*experience collection*/
                          education: Option[userEducation], /*education collection*/
@@ -49,7 +49,7 @@ case class SecondSignupStep(memberID: String, country: String, employmentStatus:
 
 //Experience Collection
 
-case class Experience(expID: String, memberID: String, position: Option[String], career_level: Option[String], description: Option[String], employer: Option[String],
+case class Experience(expID: String, status : String , memberID: String, position: Option[String], career_level: Option[String], description: Option[String], employer: Option[String],
                       start_month: Option[String],
                       start_year: Option[String], end_month: Option[String], end_year: Option[String], created_date: Option[String], updated_date: Option[String],
                       current: Option[Boolean], industry: Option[String]
@@ -60,7 +60,7 @@ case class userExperience(position: Option[String], career_level: Option[String]
                           industry: Option[String])
 
 //Education Collection
-case class Education(eduID: String, memberID: String, school_name: Option[String], field_of_study: Option[String], degree: Option[String],
+case class Education(eduID: String, status : String , memberID: String, school_name: Option[String], field_of_study: Option[String], degree: Option[String],
                      start_year: Option[String], end_year: Option[String], activities: Option[String], created_date: Option[String], updated_date: Option[String])
 
 case class userEducation(school_name: Option[String], field_of_study: Option[String], degree: Option[String],

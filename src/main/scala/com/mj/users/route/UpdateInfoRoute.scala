@@ -26,7 +26,7 @@ trait UpdateInfoRoute {
     val updateInfoProcessor = system.actorSelection("/*/updateInfoProcessor")
     implicit val timeout = Timeout(20, TimeUnit.SECONDS)
 
-    path("user" / "update-personal-info") {
+    path("update-personal-info") {
 
       put {
 

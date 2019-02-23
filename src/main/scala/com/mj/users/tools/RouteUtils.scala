@@ -7,7 +7,7 @@ import akka.http.scaladsl.server._
 import akka.stream.ActorMaterializer
 import com.mj.users.route._
 import org.joda.time.DateTime
-
+import com.mj.users.config.Application._
 import scala.concurrent.{ExecutionContext, Future}
 
 object RouteUtils extends RegisterRoute with LoginRoute with LogoutRoute with SignupStepsRoute
@@ -68,7 +68,7 @@ object RouteUtils extends RegisterRoute with LoginRoute with LogoutRoute with Si
   def routeRoot(implicit ec: ExecutionContext,
                 system: ActorSystem,
                 materializer: ActorMaterializer) = {
-    routeLogic ~
+    pathPrefix("user" / version) {routeLogic} ~
       extractRequest { request =>
         badRequest(request)
       }

@@ -19,7 +19,7 @@ object Application {
   var configMongoUri: String = configMongo.getString("uri")
 
   val configProfileDbName: String = configMongo.getString("configProfileDbName")
-
+  val version = config.getString("userVersion")
   val kongAdminURL = config.getString("kong.admin.url")
   val kongExpirationTime = config.getInt("kong.expiration.time")
 
@@ -40,6 +40,9 @@ object Application {
 
   val signupTopic: String = config.getString("kafka.signupTopic")
   val forgotTopic: String = config.getString("kafka.forgotTopic")
+
+  val active: String = config.getString("status.active")
+  val deleted: String = config.getString("status.deleted")
 
   val brokers: String = config.getString("kafka.brokers")
 }

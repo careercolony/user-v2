@@ -26,7 +26,7 @@ trait SignupStepsRoute {
     val signupStepsProcessor = system.actorSelection("/*/signupStepsProcessor")
     implicit val timeout = Timeout(20, TimeUnit.SECONDS)
 
-    path("user" / "signup-steps") {
+    path("signup-steps") {
       post {
         entity(as[SecondSignupStep]) { dto =>
           val userResponse = signupStepsProcessor ? dto

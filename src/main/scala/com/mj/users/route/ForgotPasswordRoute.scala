@@ -31,7 +31,7 @@ trait ForgotPasswordRoute extends KafkaAccess {
     implicit val timeout = Timeout(20, TimeUnit.SECONDS)
 
 
-    path("user" / "forgotPassword") {
+    path( "forgotPassword") {
       post {
         entity(as[ForgotPasswordDto]) { dto =>
           val validatorResp = SchedulingValidator.validateForgotPasswordUserRequest(dto)
