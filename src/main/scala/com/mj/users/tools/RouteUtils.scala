@@ -11,7 +11,7 @@ import org.joda.time.DateTime
 import scala.concurrent.{ExecutionContext, Future}
 
 object RouteUtils extends RegisterRoute with LoginRoute with LogoutRoute with SignupStepsRoute
-  with UpdateInterestRoute with UpdateInfoRoute with EmailNotificationRoute {
+  with UpdateInterestRoute with UpdateInfoRoute with EmailNotificationRoute with UpdatePasswordRoute  with ForgotPasswordRoute{
 
 /*  createUsersCollection()
   createOnlinesCollection()*/
@@ -79,7 +79,7 @@ object RouteUtils extends RegisterRoute with LoginRoute with LogoutRoute with Si
                  system: ActorSystem,
                  materializer: ActorMaterializer) = {
      routeLogin(system) ~ routeLogout(system) ~ routeRegister(system) ~
-       signupStepsRoute(system) ~ updateInterestRoute(system) ~ updateInfoRoute(system) ~ emailNotification(system)
+       signupStepsRoute(system) ~ updateInterestRoute(system) ~ updateInfoRoute(system) ~ emailNotification(system) ~ updatePassword(system) ~ forgotPassword(system)
   }
 
   def logRoute(implicit ec: ExecutionContext,

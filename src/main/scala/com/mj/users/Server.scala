@@ -42,7 +42,8 @@ object Server extends App {
   val JWTConsumerCreation = system.actorOf(RoundRobinPool(20).props(Props[dispatcher.JWTConsumerCreation]), "JWTConsumerCreation")
   val JWTConsumerRemoval = system.actorOf(RoundRobinPool(20).props(Props[dispatcher.JWTConsumerRemoval]), "JWTConsumerRemoval")
   val emailNotificationUserProcessor = system.actorOf(RoundRobinPool(20).props(Props[processor.EmailNotificationUserProcessor]), "emailNotificationUserProcessor")
-
+  val updatePasswordProcessor = system.actorOf(RoundRobinPool(20).props(Props[processor.UpdatePasswordProcessor]), "updatePasswordProcessor")
+  val forgotPasswordProcessor = system.actorOf(RoundRobinPool(20).props(Props[processor.ForgotPasswordProcessor]), "forgotPasswordProcessor")
 
   import system.dispatcher
 
@@ -51,3 +52,4 @@ object Server extends App {
   consoleLog("INFO",
              s"User server started! Access url: https://$hostName:$port/")
 }
+

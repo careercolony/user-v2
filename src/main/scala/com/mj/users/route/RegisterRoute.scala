@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory
 import spray.json._
 import com.mj.users.mongo.KafkaAccess
 import scala.util.{Failure, Success}
+import com.mj.users.config.Application._
 
 trait RegisterRoute extends KafkaAccess{
   val registerUserLog = LoggerFactory.getLogger(this.getClass.getName)
@@ -43,6 +44,8 @@ trait RegisterRoute extends KafkaAccess{
                 case Success(resp) =>
                   resp match {
                     case s: RegisterDtoResponse => {
+                      sendPostToKafka(s.toJson.toString,signupTopic)
+                      complete(HttpResponse(entity = HttpEntity(MediaTypes.`application/json`, s.toJson.toString)))
                       val consumerCreation = (JWTConsumerCreation ? Consumer(dto.email)).mapTo[scalaj.http.HttpResponse[String]]
                       onComplete(consumerCreation) {
                         case Success(res) => {
@@ -54,9 +57,8 @@ trait RegisterRoute extends KafkaAccess{
                               case 201 => {
                                 val parsedResp: TokenDetails = parse(res.body.toString).extract[TokenDetails]
                                 val token = CommonUtils.createToken("HS256", parsedResp.key, parsedResp.secret)
-                                sendPostToKafka(s.toJson.toString)
+                                sendPostToKafka(s.toJson.toString,signupTopic)
                                 respondWithHeader(RawHeader("token", token)) {
-                                  sendPostToKafka(s.toJson.toString)
                                   complete(HttpResponse(entity = HttpEntity(MediaTypes.`application/json`, s.toJson.toString)))
                                 }
                               }

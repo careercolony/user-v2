@@ -23,7 +23,7 @@ class JWTCredentialsCreation extends Actor  with DiagnosticActorLogging {
       implicit val timeout = Timeout(20, TimeUnit.SECONDS)
       println("consumerName:"+consumerName)
 
-      val result = Try{Http(kongAdminURL +"consumers/" + consumerName + "/jwt").header("Content-Type", "application/json").postData("{}").asString}.map(
+        val result = Try{Http(kongAdminURL +"consumers/" + consumerName + "/jwt").header("Content-Type", "application/json").postData("{}").asString}.map(
           response => origin ! response
         )
       /*val response = " {\n            \"created_at\": 1545067504069,\n            \"id\": \"253c64c4-9133-4bac-bdb5-08e6fa2b2d40\",\n            \"algorithm\": \"HS256\",\n            \"secret\": \"S8vpUIGMA7RVpjsnWZPVP1Vj8wwrd30p\",\n            \"key\": \"SDZ0YQzA0wrLzJRmifZOgFY1atV0c8FV\",\n            \"consumer_id\": \"b14aee55-cedc-44db-97b7-4c682d4f8795\"\n        }"

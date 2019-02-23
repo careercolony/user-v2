@@ -1,11 +1,11 @@
 package com.mj.users.mongo
 
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
-import com.mj.users.config.Application.{brokers,topic}
+import com.mj.users.config.Application.{brokers}
 
 trait KafkaAccess {
 
-  def sendPostToKafka(post: String): Unit = {
+  def sendPostToKafka(post: String , topic : String): Unit = {
     import java.util.Properties
 
     val props = new Properties()

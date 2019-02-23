@@ -14,6 +14,8 @@ trait MessageConfig {
   val emailSuccess = conf.getString("successMessages.emailSuccess")
   val secondSignupSuccess = conf.getString("successMessages.secondSignupSuccess")
   val updateInterestSuccess = conf.getString("successMessages.updateInterestSuccess")
+  val updatePasswordSuccess = conf.getString("successMessages.updatePasswordSuccess")
+  val forgotPasswordSuccess = conf.getString("successMessages.forgotPasswordSuccess")
 
 
   /* Error Codes & descriptions*/
@@ -22,7 +24,7 @@ trait MessageConfig {
   val userExistMsg = conf.getString("errorMessages.userExistMsg")
   val secondSignupFailed = conf.getString("errorMessages.secondSignupFailed")
   val updateInterestFailed = conf.getString("errorMessages.updateInterestFailed")
-
+  val forgotPasswordFailed = conf.getString("errorMessages.forgotPasswordFailed")
 
 
 

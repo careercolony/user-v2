@@ -38,6 +38,8 @@ object Application {
   val futureConnection = Future.fromTry(connection)
 
 
-  val topic: String = config.getString("kafka.topic")
+  val signupTopic: String = config.getString("kafka.signupTopic")
+  val forgotTopic: String = config.getString("kafka.forgotTopic")
+
   val brokers: String = config.getString("kafka.brokers")
 }

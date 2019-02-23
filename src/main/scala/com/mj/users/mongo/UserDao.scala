@@ -58,13 +58,13 @@ object UserDao {
         userRequest.copy(password = sha1(userRequest.password), repassword = sha1(userRequest.password))
       }
       userData <- Future {
-        DBRegisterDto(BSONObjectID.generate().stringify, avatar, prepareUseRequest,None , None, None, None, None, None, None)
+        DBRegisterDto(BSONObjectID.generate().stringify, avatar, prepareUseRequest, None, None, None, None, None, None, None)
       }
       response <- insert[DBRegisterDto](usersCollection, userData).map {
-        resp => RegisterDtoResponse(resp._id, resp.registerDto.firstname, resp.registerDto.lastname, resp.registerDto.email ,resp.avatar)
+        resp => RegisterDtoResponse(resp._id, resp.registerDto.firstname, resp.registerDto.lastname, resp.registerDto.email, resp.avatar)
       }
 
-      
+
     }
       yield (response)
   }
@@ -81,10 +81,10 @@ object UserDao {
   }
 
 
-    def updateUserDetails(secondStepRequest: SecondSignupStep): Future[String] = {
+  def updateUserDetails(secondStepRequest: SecondSignupStep): Future[String] = {
     val selector: BSONDocument = if (secondStepRequest.employmentStatus.toInt > 5) {
       BSONDocument("$set" -> BSONDocument("education" -> userEducation(secondStepRequest.school_name,
-        secondStepRequest.field_of_study, secondStepRequest.degree,secondStepRequest.start_year, secondStepRequest.end_year,secondStepRequest.activities),
+        secondStepRequest.field_of_study, secondStepRequest.degree, secondStepRequest.start_year, secondStepRequest.end_year, secondStepRequest.activities),
         "interest_on_colony" -> secondStepRequest.interest_on_colony,
         "country" -> secondStepRequest.country,
         "userIP" -> secondStepRequest.userIP,
@@ -92,9 +92,9 @@ object UserDao {
         "secondSignup_flag" -> true
       ))
     } else {
-       BSONDocument("$set" -> BSONDocument("experience" -> userExperience(secondStepRequest.position,secondStepRequest.career_level,
-         secondStepRequest.description,secondStepRequest.employer,secondStepRequest.start_month,secondStepRequest.start_year,
-         secondStepRequest.end_month,secondStepRequest.end_year,Some(secondStepRequest.current),secondStepRequest.industry),
+      BSONDocument("$set" -> BSONDocument("experience" -> userExperience(secondStepRequest.position, secondStepRequest.career_level,
+        secondStepRequest.description, secondStepRequest.employer, secondStepRequest.start_month, secondStepRequest.start_year,
+        secondStepRequest.end_month, secondStepRequest.end_year, Some(secondStepRequest.current), secondStepRequest.industry),
         "interest_on_colony" -> secondStepRequest.interest_on_colony,
         "country" -> secondStepRequest.country,
         "userIP" -> secondStepRequest.userIP,
@@ -110,11 +110,11 @@ object UserDao {
 
   }
 
-  def insertLoginHistory(memberId : String , user_Agent : Option[String] , location : Option[Location]) = {
+  def insertLoginHistory(memberId: String, user_Agent: Option[String], location: Option[Location]) = {
     for {
 
       userData <- Future {
-        loginHistory(memberId ,user_Agent,location)
+        loginHistory(memberId, user_Agent, location)
       }
       response <- insert[loginHistory](loginHistoryCollection, userData)
 
@@ -151,7 +151,7 @@ object UserDao {
           secondStepRequest.employer,
           secondStepRequest.start_month,
           secondStepRequest.start_year
-          ,secondStepRequest.end_month,secondStepRequest.end_year,None , None ,Some(secondStepRequest.current),secondStepRequest.industry
+          , secondStepRequest.end_month, secondStepRequest.end_year, None, None, Some(secondStepRequest.current), secondStepRequest.industry
         )
       }.flatMap(expirenceData => insert[Experience](experienceCollection, expirenceData).map(response => response))
     }
@@ -169,6 +169,26 @@ object UserDao {
 
   }
 
+  def updatePasswordDetails(updatePasswordDto: UpdatePasswordDto): Future[String] = {
+
+    update(usersCollection, {
+      BSONDocument("registerDto.email" -> updatePasswordDto.email)
+    }, {
+      BSONDocument("$set" -> BSONDocument(
+        "user_agent" -> updatePasswordDto.user_agent,
+        "registerDto.location" -> updatePasswordDto.location,
+        "password" -> sha1(updatePasswordDto.password), "repassword" -> sha1(updatePasswordDto.password)))
+    }).map(resp => resp)
+
+  }
+
+
+  def forgotPasswordDetails(forgotPasswordDto: ForgotPasswordDto):  Future[Option[DBRegisterDto]]  = {
+
+    search[DBRegisterDto](usersCollection,
+      document("registerDto.email" -> forgotPasswordDto.email))
+
+  }
 
   def updateUserInfoDetails(personalInfo: PersonalInfo): Future[String] = {
 
@@ -196,16 +216,16 @@ object UserDao {
   }
 
   //when user login, update the loginCount and online info
-  def loginUpdate(uid: String, login : LoginDto): Future[String] = {
+  def loginUpdate(uid: String, login: LoginDto): Future[String] = {
     for {
       onlineResult <- updateOnline(uid)
       loginResult <- {
         val selector = document("_id" -> uid)
-        val updateDoc =  document("$set" -> document(
+        val updateDoc = document("$set" -> document(
           "user_agent" -> login.user_agent,
-          "registerDto.location" -> login.location) ,
+          "registerDto.location" -> login.location),
           "$inc" -> document("loginCount" -> 1)
-          )
+        )
         update(usersCollection, selector, updateDoc)
       }
     } yield {
@@ -213,7 +233,7 @@ object UserDao {
     }
   }
 
-  def emailVerification(memberID : String): Future[String] ={
+  def emailVerification(memberID: String): Future[String] = {
     update(usersCollection, {
       BSONDocument("_id" -> memberID)
     }, {
