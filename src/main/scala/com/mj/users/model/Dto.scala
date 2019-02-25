@@ -25,7 +25,7 @@ case class loginHistory(memberID: String, user_agent: Option[String], location: 
 case class RegisterDtoResponse(memberID: String, firstname: String, lastname: String, email: String, avatar: String)
 
 //RegisterDto DB user case class
-case class DBRegisterDto(var _id: String, status : String ,avatar: String,
+case class DBRegisterDto(var _id: String, status : String ,avatar: String, created_date: Option[String], updated_date: Option[String],
                          registerDto: RegisterDto,
                          experience: Option[userExperience], /*experience collection*/
                          education: Option[userEducation], /*education collection*/

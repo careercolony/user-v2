@@ -12,6 +12,7 @@ import reactivemongo.bson._
 
 import scala.concurrent.Future
 import com.mj.users.config.Application._
+import org.joda.time.DateTime
 object UserDao {
 
   val usersCollection: Future[BSONCollection] = db.map(_.collection[BSONCollection]("users"))
@@ -58,7 +59,10 @@ object UserDao {
         userRequest.copy(password = sha1(userRequest.password), repassword = sha1(userRequest.password))
       }
       userData <- Future {
-        DBRegisterDto(BSONObjectID.generate().stringify, active ,avatar, prepareUseRequest, None, None, None, None, None, None, None)
+        DBRegisterDto(BSONObjectID.generate().stringify, active ,avatar,
+          Some(DateTime.now.toString("yyyy-MM-dd'T'HH:mm:ssZ")),
+          None,
+          prepareUseRequest, None, None, None, None, None, None, None)
       }
       response <- insert[DBRegisterDto](usersCollection, userData).map {
         resp => RegisterDtoResponse(resp._id, resp.registerDto.firstname, resp.registerDto.lastname, resp.registerDto.email, resp.avatar)
@@ -89,7 +93,8 @@ object UserDao {
         "country" -> secondStepRequest.country,
         "userIP" -> secondStepRequest.userIP,
         "employmentStatus" -> secondStepRequest.employmentStatus,
-        "secondSignup_flag" -> true
+        "secondSignup_flag" -> true,
+        "updated_date" -> Some(DateTime.now.toString("yyyy-MM-dd'T'HH:mm:ssZ"))
       ))
     } else {
       BSONDocument("$set" -> BSONDocument("experience" -> userExperience(secondStepRequest.position, secondStepRequest.career_level,
@@ -99,13 +104,14 @@ object UserDao {
         "country" -> secondStepRequest.country,
         "userIP" -> secondStepRequest.userIP,
         "employmentStatus" -> secondStepRequest.employmentStatus,
-        "secondSignup_flag" -> true
+        "secondSignup_flag" -> true,
+        "updated_date" -> Some(DateTime.now.toString("yyyy-MM-dd'T'HH:mm:ssZ"))
       ))
 
     }
 
     update(usersCollection, {
-      BSONDocument("_id" -> secondStepRequest.memberID)
+      BSONDocument("_id" -> secondStepRequest.memberID,"status" -> active)
     }, selector).map(resp => resp)
 
   }
@@ -166,7 +172,8 @@ object UserDao {
       BSONDocument("_id" -> interestReq.memberID)
     }, {
       BSONDocument("$set" -> BSONDocument("interest_flag" -> true),
-        "$set" -> BSONDocument("interest" -> interestReq.interest.get.split(",")))
+        "$set" -> BSONDocument("interest" -> interestReq.interest.get.split(","),
+          "updated_date" -> Some(DateTime.now.toString("yyyy-MM-dd'T'HH:mm:ssZ"))))
     }).map(resp => resp)
 
   }
@@ -179,7 +186,8 @@ object UserDao {
       BSONDocument("$set" -> BSONDocument(
         "user_agent" -> updatePasswordDto.user_agent,
         "registerDto.location" -> updatePasswordDto.location,
-        "password" -> sha1(updatePasswordDto.password), "repassword" -> sha1(updatePasswordDto.password)))
+        "password" -> sha1(updatePasswordDto.password), "repassword" -> sha1(updatePasswordDto.password),
+        "updated_date" -> Some(DateTime.now.toString("yyyy-MM-dd'T'HH:mm:ssZ"))))
     }).map(resp => resp)
 
   }
@@ -198,7 +206,8 @@ object UserDao {
       BSONDocument("_id" -> personalInfo.memberID)
     }, {
       BSONDocument(
-        "$set" -> BSONDocument("registerDto.contact_info" -> personalInfo.contact_info))
+        "$set" -> BSONDocument("registerDto.contact_info" -> personalInfo.contact_info,"updated_date" -> Some(DateTime.now.toString("yyyy-MM-dd'T'HH:mm:ssZ"))
+        ))
     }).map(resp => resp)
 
   }
@@ -209,7 +218,9 @@ object UserDao {
       BSONDocument("_id" -> memberID)
     }, {
       BSONDocument(
-        "$set" -> BSONDocument("status" -> deleted))
+        "$set" -> BSONDocument("status" -> deleted ,
+          "updated_date" -> Some(DateTime.now.toString("yyyy-MM-dd'T'HH:mm:ssZ"))
+      ))
     }).map(resp => resp)
 
   }
@@ -251,7 +262,8 @@ object UserDao {
       BSONDocument("_id" -> memberID)
     }, {
       BSONDocument(
-        "$set" -> BSONDocument("email_verification_flag" -> true))
+        "$set" -> BSONDocument("email_verification_flag" -> true),
+        "updated_date" -> Some(DateTime.now.toString("yyyy-MM-dd'T'HH:mm:ssZ")))
     }).map(resp => resp)
   }
 
