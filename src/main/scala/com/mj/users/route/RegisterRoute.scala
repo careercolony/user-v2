@@ -43,6 +43,7 @@ trait RegisterRoute extends KafkaAccess{
               onComplete(userResponse) {
                 case Success(resp) =>
                   resp match {
+                      
                     case s: RegisterDtoResponse => {
                     /*  sendPostToKafka(s.toJson.toString,signupTopic)
                       complete(HttpResponse(entity = HttpEntity(MediaTypes.`application/json`, s.toJson.toString)))*/
