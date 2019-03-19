@@ -44,8 +44,8 @@ trait RegisterRoute extends KafkaAccess{
                 case Success(resp) =>
                   resp match {
                     case s: RegisterDtoResponse => {
-                      sendPostToKafka(s.toJson.toString,signupTopic)
-                      complete(HttpResponse(entity = HttpEntity(MediaTypes.`application/json`, s.toJson.toString)))
+                    /*  sendPostToKafka(s.toJson.toString,signupTopic)
+                      complete(HttpResponse(entity = HttpEntity(MediaTypes.`application/json`, s.toJson.toString)))*/
                       val consumerCreation = (JWTConsumerCreation ? Consumer(dto.email)).mapTo[scalaj.http.HttpResponse[String]]
                       onComplete(consumerCreation) {
                         case Success(res) => {
