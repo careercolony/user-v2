@@ -22,7 +22,7 @@ case class RegisterDto(email: String, nickname: String, password: String, repass
 case class loginHistory(memberID: String, user_agent: Option[String], location: Option[Location])
 
 //RegisterDto api user response
-case class RegisterDtoResponse(memberID: String, firstname: String, lastname: String, email: String, avatar: String)
+case class RegisterDtoResponse(memberID: String, firstname: String, lastname: String, email: String, avatar: String , created_date : String)
 
 //RegisterDto DB user case class
 case class DBRegisterDto(var _id: String, status : String ,avatar: String, created_date: Option[String], updated_date: Option[String],
@@ -106,7 +106,7 @@ object JsonRepo extends DefaultJsonProtocol with SprayJsonSupport {
   implicit val contactInfoFormats: RootJsonFormat[ContactInfo] = jsonFormat11(ContactInfo)
   implicit val registerDtoFormats: RootJsonFormat[RegisterDto] = jsonFormat13(RegisterDto)
   implicit val errorMessageDtoFormats: RootJsonFormat[responseMessage] = jsonFormat3(responseMessage)
-  implicit val registerDtoResponseDtoFormats: RootJsonFormat[RegisterDtoResponse] = jsonFormat5(RegisterDtoResponse)
+  implicit val registerDtoResponseDtoFormats: RootJsonFormat[RegisterDtoResponse] = jsonFormat6(RegisterDtoResponse)
   implicit val secondSignupStepsFormats: RootJsonFormat[SecondSignupStep] = jsonFormat20(SecondSignupStep)
   implicit val interestFormats: RootJsonFormat[Interest] = jsonFormat2(Interest)
   implicit val personalInfoFormats: RootJsonFormat[PersonalInfo] = jsonFormat2(PersonalInfo)

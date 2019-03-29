@@ -65,7 +65,7 @@ object UserDao {
           prepareUseRequest, None, None, None, None, None, None, None)
       }
       response <- insert[DBRegisterDto](usersCollection, userData).map {
-        resp => RegisterDtoResponse(resp._id, resp.registerDto.firstname, resp.registerDto.lastname, resp.registerDto.email, resp.avatar)
+        resp => RegisterDtoResponse(resp._id, resp.registerDto.firstname, resp.registerDto.lastname, resp.registerDto.email, resp.avatar, DateTime.now.toString("yyyy-MM-dd'T'HH:mm:ssZ"))
       }
 
 
