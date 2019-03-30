@@ -1,7 +1,13 @@
+enablePlugins(JavaAppPackaging)
+enablePlugins(DockerPlugin)
+enablePlugins(AshScriptPlugin)
+
+packageName in Docker := "careercolony/akka-http-docker-user-api"
+dockerBaseImage := "openjdk:jre-alpine"
+
 name := "User"
 
-version := "0.0.1-SNAPSHOT"
-
+version := "0.0.1"
 scalaVersion := "2.11.8"
 
 scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "utf8")
