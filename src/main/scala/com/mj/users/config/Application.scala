@@ -45,4 +45,6 @@ object Application {
   val deleted: String = config.getString("status.deleted")
 
   val brokers: String = config.getString("kafka.brokers")
+
+  val friendInvitationUrl = config.getString("friend.invitation.url")
 }

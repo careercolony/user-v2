@@ -30,7 +30,7 @@ trait EmailNotificationRoute {
     path( "verify-email" / "memberID" / Segment)  { (memberID: String) =>
       get {
 
-        val emailNotificationResponse = emailNotificationUserProcessor ? memberID
+        val emailNotificationResponse = emailNotificationUserProcessor ? ( memberID , system )
           onComplete(emailNotificationResponse) {
             case Success(resp) =>
               resp match {

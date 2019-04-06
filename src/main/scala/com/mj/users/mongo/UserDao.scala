@@ -33,11 +33,15 @@ object UserDao {
 
   implicit def userEducationHandler = Macros.handler[userEducation]
 
+  implicit def connectionsDtoHandler = Macros.handler[ConnectionsDto]
+
   implicit def registerHandler = Macros.handler[RegisterDto]
 
   implicit def experienceHandler = Macros.handler[Experience]
 
   implicit def educationeHandler = Macros.handler[Education]
+
+
 
   implicit def dbRegisterHandler = Macros.handler[DBRegisterDto]
 
@@ -62,7 +66,7 @@ object UserDao {
         DBRegisterDto(BSONObjectID.generate().stringify, active ,avatar,
           Some(DateTime.now.toString("yyyy-MM-dd'T'HH:mm:ssZ")),
           None,
-          prepareUseRequest, None, None, None, None, None, None, None)
+          prepareUseRequest, None, None, None, None, None, None, None,None,None)
       }
       response <- insert[DBRegisterDto](usersCollection, userData).map {
         resp => RegisterDtoResponse(resp._id, resp.registerDto.firstname, resp.registerDto.lastname, resp.registerDto.email, resp.avatar, DateTime.now.toString("yyyy-MM-dd'T'HH:mm:ssZ"))
@@ -85,34 +89,47 @@ object UserDao {
   }
 
 
-  def updateUserDetails(secondStepRequest: SecondSignupStep): Future[String] = {
-    val selector: BSONDocument = if (secondStepRequest.employmentStatus.toInt > 5) {
-      BSONDocument("$set" -> BSONDocument("education" -> userEducation(secondStepRequest.school_name,
-        secondStepRequest.field_of_study, secondStepRequest.degree, secondStepRequest.start_year, secondStepRequest.end_year, secondStepRequest.activities),
-        "interest_on_colony" -> secondStepRequest.interest_on_colony,
-        "country" -> secondStepRequest.country,
-        "userIP" -> secondStepRequest.userIP,
-        "employmentStatus" -> secondStepRequest.employmentStatus,
-        "secondSignup_flag" -> true,
-        "updated_date" -> Some(DateTime.now.toString("yyyy-MM-dd'T'HH:mm:ssZ"))
-      ))
+  def updateUserDetails(secondStepRequest: SecondSignupStep ,userObj : Option[DBRegisterDto]): Future[String] = {
+
+
+    val interests = if(secondStepRequest.interest.isDefined) Some(secondStepRequest.interest.get.split(",").toList) else None
+    val conn = if(secondStepRequest.connections.isDefined) Some(secondStepRequest.connections.get) else None
+    val user = if (secondStepRequest.employmentStatus.toInt > 5) {
+      userObj.get.copy(
+        education =Some(userEducation(secondStepRequest.school_name,
+          secondStepRequest.field_of_study, secondStepRequest.degree, secondStepRequest.start_year, secondStepRequest.end_year, secondStepRequest.activities)),
+        interest_on_colony =secondStepRequest.interest_on_colony,
+        country = Some(secondStepRequest.country),
+        userIP = secondStepRequest.userIP,
+        employmentStatus = Some(secondStepRequest.employmentStatus),
+        secondSignup_flag = Some(true),
+        updated_date = Some(DateTime.now.toString("yyyy-MM-dd'T'HH:mm:ssZ")),
+        registerDto = userObj.get.registerDto.copy(connections = conn),
+        interest = interests
+      )
+
     } else {
-      BSONDocument("$set" -> BSONDocument("experience" -> userExperience(secondStepRequest.position, secondStepRequest.career_level,
-        secondStepRequest.description, secondStepRequest.employer, secondStepRequest.start_month, secondStepRequest.start_year,
-        secondStepRequest.end_month, secondStepRequest.end_year, Some(secondStepRequest.current), secondStepRequest.industry),
-        "interest_on_colony" -> secondStepRequest.interest_on_colony,
-        "country" -> secondStepRequest.country,
-        "userIP" -> secondStepRequest.userIP,
-        "employmentStatus" -> secondStepRequest.employmentStatus,
-        "secondSignup_flag" -> true,
-        "updated_date" -> Some(DateTime.now.toString("yyyy-MM-dd'T'HH:mm:ssZ"))
-      ))
+
+      userObj.get.copy(
+        experience =Some(userExperience(secondStepRequest.position, secondStepRequest.career_level,
+          secondStepRequest.description, secondStepRequest.employer, secondStepRequest.start_month, secondStepRequest.start_year,
+          secondStepRequest.end_month, secondStepRequest.end_year, Some(secondStepRequest.current), secondStepRequest.industry)),
+        interest_on_colony =secondStepRequest.interest_on_colony,
+        country = Some(secondStepRequest.country),
+        userIP = secondStepRequest.userIP,
+        employmentStatus = Some(secondStepRequest.employmentStatus),
+        secondSignup_flag = Some(true),
+        updated_date = Some(DateTime.now.toString("yyyy-MM-dd'T'HH:mm:ssZ")),
+        registerDto = userObj.get.registerDto.copy(connections = conn),
+        interest = interests
+      )
+
 
     }
 
-    update(usersCollection, {
+    updateDetails(usersCollection, {
       BSONDocument("_id" -> secondStepRequest.memberID,"status" -> active)
-    }, selector).map(resp => resp)
+    }, user).map(resp => resp)
 
   }
 
@@ -171,8 +188,7 @@ object UserDao {
     update(usersCollection, {
       BSONDocument("_id" -> interestReq.memberID)
     }, {
-      BSONDocument("$set" -> BSONDocument("interest_flag" -> true),
-        "$set" -> BSONDocument("interest" -> interestReq.interest.get.split(","),
+      BSONDocument("$set" -> BSONDocument("interest" -> interestReq.interest.get.split(","),
           "updated_date" -> Some(DateTime.now.toString("yyyy-MM-dd'T'HH:mm:ssZ"))))
     }).map(resp => resp)
 
@@ -257,14 +273,13 @@ object UserDao {
     }
   }
 
-  def emailVerification(memberID: String): Future[String] = {
-    update(usersCollection, {
-      BSONDocument("_id" -> memberID)
-    }, {
-      BSONDocument(
-        "$set" -> BSONDocument("email_verification_flag" -> true),
-        "updated_date" -> Some(DateTime.now.toString("yyyy-MM-dd'T'HH:mm:ssZ")))
-    }).map(resp => resp)
+  def emailVerification(memberID: String , userObj : DBRegisterDto): Future[String] = {
+    println("memberID:" + memberID)
+
+    updateDetails(usersCollection, {
+      BSONDocument("_id" -> memberID,"status" -> active)
+    }, userObj.copy(email_verification_flag = Some(true)  , updated_date = Some(DateTime.now.toString("yyyy-MM-dd'T'HH:mm:ssZ")))).map(resp => resp)
+
   }
 
   def getDefaultAvatar: Future[Map[String, String]] = {

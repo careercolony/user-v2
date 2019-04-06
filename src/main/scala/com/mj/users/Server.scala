@@ -45,6 +45,7 @@ object Server extends App {
   val updatePasswordProcessor = system.actorOf(RoundRobinPool(20).props(Props[processor.UpdatePasswordProcessor]), "updatePasswordProcessor")
   val forgotPasswordProcessor = system.actorOf(RoundRobinPool(20).props(Props[processor.ForgotPasswordProcessor]), "forgotPasswordProcessor")
   val deleteUserProcessor = system.actorOf(RoundRobinPool(20).props(Props[processor.DeleteUserProcessor]), "deleteUserProcessor")
+  val FriendInvitationDispatcher = system.actorOf(RoundRobinPool(20).props(Props[dispatcher.FriendInvitationDispatcher]), "FriendInvitationDispatcher")
 
   import system.dispatcher
 

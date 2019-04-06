@@ -29,7 +29,7 @@ trait SignupStepsRoute {
     path("signup-steps") {
       post {
         entity(as[SecondSignupStep]) { dto =>
-          val userResponse = signupStepsProcessor ? dto
+          val userResponse = signupStepsProcessor ? ( dto , system)
           onComplete(userResponse) {
             case Success(resp) =>
               resp match {

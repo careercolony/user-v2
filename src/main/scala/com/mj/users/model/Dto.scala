@@ -14,9 +14,7 @@ case class UidDto(uid: String)
 //RegisterDto api user request
 case class RegisterDto(email: String, nickname: String, password: String, repassword: String,
                        gender: Int, firstname: String, lastname: String, contact_info: Option[ContactInfo],
-                       location: Option[Location], connections: Option[List[String]],
-                       connection_requests: Option[List[String]],
-                       friends_with_post: Option[List[String]],
+                       location: Option[Location],connections :  Option[List[ConnectionsDto]],
                        user_agent: Option[String])
 
 case class loginHistory(memberID: String, user_agent: Option[String], location: Option[Location])
@@ -30,8 +28,8 @@ case class DBRegisterDto(var _id: String, status : String ,avatar: String, creat
                          experience: Option[userExperience], /*experience collection*/
                          education: Option[userEducation], /*education collection*/
                          Interest: Option[List[String]], /*interest details*/
-                         userIP: Option[String], country: Option[String], interest_on_colony: Option[String], employmentStatus: Option[String] /*extra fields from second step page*/
-                         , interest_flag: Option[Boolean] = Some(false), secondSignup_flag: Option[Boolean] = Some(false), email_verification_flag: Option[Boolean] = Some(false), /*user prfile flags*/
+                         userIP: Option[String], country: Option[String], interest_on_colony: Option[String], employmentStatus: Option[String] ,interest: Option[List[String]]/*extra fields from second step page*/
+                         , secondSignup_flag: Option[Boolean] = Some(false), email_verification_flag: Option[Boolean] = Some(false),connections_flag : Option[Boolean]= Some(false) , /*user prfile flags*/
                          lastLogin: Long = 0, loginCount: Int = 0, sessionsStatus: List[SessionStatus] = List(), dateline: Long = System.currentTimeMillis()
                         )
 
@@ -45,7 +43,7 @@ case class ContactInfo(address: String, city: String, state: String, country: St
 case class SecondSignupStep(memberID: String, country: String, employmentStatus: String,
                             employer: Option[String], position: Option[String], career_level: Option[String], description: Option[String], industry: Option[String], degree: Option[String],
                             school_name: Option[String], field_of_study: Option[String], activities: Option[String], current: Boolean, interest_on_colony: Option[String], userIP: Option[String],
-                            updated_date: Option[String], start_month: Option[String], start_year: Option[String], end_month: Option[String], end_year: Option[String])
+                            updated_date: Option[String], start_month: Option[String], start_year: Option[String], end_month: Option[String], end_year: Option[String], connections: Option[List[ConnectionsDto]],interest: Option[String])
 
 //Experience Collection
 
@@ -98,16 +96,23 @@ case class UpdatePasswordDto(email: String, password: String, repassword: String
 
 case class ForgotPasswordDto(email: String)
 
+case class ConnectionsDto (memberID : String , conn_type : String , status : String )
+
+case class MultipleInvitation(memberID: String, connections: Option[List[ConnectionsDto]])
+
 object JsonRepo extends DefaultJsonProtocol with SprayJsonSupport {
+  implicit val connectionsDtoFormats: RootJsonFormat[ConnectionsDto] = jsonFormat3(ConnectionsDto)
+  implicit val multipleInvitationFormats: RootJsonFormat[MultipleInvitation] = jsonFormat2(MultipleInvitation)
+
   implicit val locationFormats: RootJsonFormat[Location] = jsonFormat11(Location)
   implicit val loginDtoFormats: RootJsonFormat[LoginDto] = jsonFormat4(LoginDto)
   implicit val uidDtoFormats: RootJsonFormat[UidDto] = jsonFormat1(UidDto)
 
   implicit val contactInfoFormats: RootJsonFormat[ContactInfo] = jsonFormat11(ContactInfo)
-  implicit val registerDtoFormats: RootJsonFormat[RegisterDto] = jsonFormat13(RegisterDto)
+  implicit val registerDtoFormats: RootJsonFormat[RegisterDto] = jsonFormat11(RegisterDto)
   implicit val errorMessageDtoFormats: RootJsonFormat[responseMessage] = jsonFormat3(responseMessage)
   implicit val registerDtoResponseDtoFormats: RootJsonFormat[RegisterDtoResponse] = jsonFormat6(RegisterDtoResponse)
-  implicit val secondSignupStepsFormats: RootJsonFormat[SecondSignupStep] = jsonFormat20(SecondSignupStep)
+  implicit val secondSignupStepsFormats: RootJsonFormat[SecondSignupStep] = jsonFormat22(SecondSignupStep)
   implicit val interestFormats: RootJsonFormat[Interest] = jsonFormat2(Interest)
   implicit val personalInfoFormats: RootJsonFormat[PersonalInfo] = jsonFormat2(PersonalInfo)
   implicit val tokenIDFormats: RootJsonFormat[TokenID] = jsonFormat1(TokenID)
