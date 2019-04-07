@@ -84,7 +84,7 @@ case class TokenDetails(rsa_public_key: String, consumer: Option[TokenID], creat
 
 case class ConsumerDetails(userName: String, created_at: Long, id: String)
 
-case class listConsumerDetails(total: Long, data: List[TokenDetails])
+case class listConsumerDetails(next: String, data: List[TokenDetails])
 
 case class Consumer(username: String)
 
