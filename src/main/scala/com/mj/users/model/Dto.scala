@@ -100,9 +100,17 @@ case class ConnectionsDto (memberID : String , conn_type : String , status : Str
 
 case class MultipleInvitation(memberID: String, connections: Option[List[ConnectionsDto]])
 
+case class FriendBirthdayDetails(memberID : String ,  birth_day: String, birth_month: String, birth_year: String)
+
+case class BirthdayDetails ( memberID : String , friendDetails : List[FriendBirthdayDetails])
+
+case class ListBirthdayDetails ( birthdayDetails : List[BirthdayDetails])
+
 object JsonRepo extends DefaultJsonProtocol with SprayJsonSupport {
   implicit val connectionsDtoFormats: RootJsonFormat[ConnectionsDto] = jsonFormat3(ConnectionsDto)
   implicit val multipleInvitationFormats: RootJsonFormat[MultipleInvitation] = jsonFormat2(MultipleInvitation)
+  implicit val friendBirthdayDetailsFormats: RootJsonFormat[FriendBirthdayDetails] = jsonFormat4(FriendBirthdayDetails)
+  implicit val birthdayDetailsFormats: RootJsonFormat[BirthdayDetails] = jsonFormat2(BirthdayDetails)
 
   implicit val locationFormats: RootJsonFormat[Location] = jsonFormat11(Location)
   implicit val loginDtoFormats: RootJsonFormat[LoginDto] = jsonFormat4(LoginDto)
@@ -120,7 +128,12 @@ object JsonRepo extends DefaultJsonProtocol with SprayJsonSupport {
   implicit val consumerFormats: RootJsonFormat[Consumer] = jsonFormat1(Consumer)
   implicit val consumerDetailsFormats: RootJsonFormat[ConsumerDetails] = jsonFormat3(ConsumerDetails)
   implicit val consumerDetailsListFormats: RootJsonFormat[listConsumerDetails] = jsonFormat2(listConsumerDetails)
-  implicit val updatePasswordDto: RootJsonFormat[UpdatePasswordDto] = jsonFormat5(UpdatePasswordDto)
-  implicit val forgotPasswordDto: RootJsonFormat[ForgotPasswordDto] = jsonFormat1(ForgotPasswordDto)
+  implicit val updatePasswordDtoFormats: RootJsonFormat[UpdatePasswordDto] = jsonFormat5(UpdatePasswordDto)
+  implicit val forgotPasswordDtoFormats: RootJsonFormat[ForgotPasswordDto] = jsonFormat1(ForgotPasswordDto)
+  implicit val userExperienceFormats: RootJsonFormat[userExperience] = jsonFormat10(userExperience)
+  implicit val userEducationFormats: RootJsonFormat[userEducation] = jsonFormat6(userEducation)
+  implicit val sessionStatusFormats: RootJsonFormat[SessionStatus] = jsonFormat2(SessionStatus)
+  implicit val dBRegisterDtoFormats: RootJsonFormat[DBRegisterDto] = jsonFormat21(DBRegisterDto)
 
 }
+

@@ -11,6 +11,7 @@ import com.mj.users.config.Application._
 import com.mj.users.tools.CommonUtils._
 import com.mj.users.tools.RouteUtils
 import com.typesafe.config.ConfigFactory
+import scala.concurrent.duration._
 
 object Server extends App {
   val seedNodesStr = seedNodes
@@ -46,8 +47,11 @@ object Server extends App {
   val forgotPasswordProcessor = system.actorOf(RoundRobinPool(20).props(Props[processor.ForgotPasswordProcessor]), "forgotPasswordProcessor")
   val deleteUserProcessor = system.actorOf(RoundRobinPool(20).props(Props[processor.DeleteUserProcessor]), "deleteUserProcessor")
   val FriendInvitationDispatcher = system.actorOf(RoundRobinPool(20).props(Props[dispatcher.FriendInvitationDispatcher]), "FriendInvitationDispatcher")
-
+  val GetUserDetailsProcessor = system.actorOf(RoundRobinPool(20).props(Props[processor.GetUserDetailsProcessor]), "GetUserDetailsProcessor")
+  val BirthdayProcessor = system.actorOf(RoundRobinPool(20).props(Props[processor.BirthdayProcessor]), "BirthdayProcessor")
+  val GetFriendBirthdayDetailsProcessor = system.actorOf(RoundRobinPool(20).props(Props[processor.GetFriendBirthdayDetailsProcessor]), "GetFriendBirthdayDetailsProcessor")
   import system.dispatcher
+  system.scheduler.scheduleOnce(20 seconds , BirthdayProcessor ,"schedule")
 
   Http().bindAndHandle(RouteUtils.logRoute, "0.0.0.0", port)
 

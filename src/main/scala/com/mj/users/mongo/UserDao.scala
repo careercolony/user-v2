@@ -20,7 +20,7 @@ object UserDao {
   val experienceCollection: Future[BSONCollection] = db1.map(_.collection[BSONCollection]("experience"))
   val eductionCollection: Future[BSONCollection] = db1.map(_.collection[BSONCollection]("education"))
   val loginHistoryCollection: Future[BSONCollection] = db.map(_.collection[BSONCollection]("loginHistory"))
-
+  val birthdayCollection: Future[BSONCollection] = db.map(_.collection[BSONCollection]("birthday"))
   implicit def sessionStatusHandler = Macros.handler[SessionStatus]
 
   implicit def onlineHandler = Macros.handler[Online]
@@ -41,7 +41,11 @@ object UserDao {
 
   implicit def educationeHandler = Macros.handler[Education]
 
+  implicit def friendBirthdayDetailsHandler = Macros.handler[FriendBirthdayDetails]
 
+  implicit def birthdayDetailsHandler = Macros.handler[BirthdayDetails]
+
+  implicit def ListBirthdayDetailsHandler = Macros.handler[ListBirthdayDetails]
 
   implicit def dbRegisterHandler = Macros.handler[DBRegisterDto]
 
@@ -88,6 +92,17 @@ object UserDao {
 
   }
 
+  def getAllUsers: Future[List[DBRegisterDto]] = {
+    searchAll[DBRegisterDto](usersCollection,
+      document("status" -> "test"/*active*/ /*,"_id" -> "5cb1d4070b00008300cbe1ea"*/) ,100)
+
+  }
+
+  def getFiendBirthdayDetails(memberID : String) = {
+    search[ListBirthdayDetails](birthdayCollection,
+        document("birthdayDetails" -> document( "$elemMatch"->  document( "memberID"-> memberID))) )
+
+  }
 
   def updateUserDetails(secondStepRequest: SecondSignupStep ,userObj : Option[DBRegisterDto]): Future[String] = {
 
@@ -193,6 +208,13 @@ object UserDao {
     }).map(resp => resp)
 
   }
+
+  def insertBirthdayDetails(birthdayDetails: ListBirthdayDetails): Future[String] = {
+
+    insert[ListBirthdayDetails](birthdayCollection, birthdayDetails).map(resp => "Successfully inserted into Data store")
+
+  }
+
 
   def updatePasswordDetails(updatePasswordDto: UpdatePasswordDto): Future[String] = {
 

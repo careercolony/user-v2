@@ -190,6 +190,33 @@ object MongoConnector {
     }
   }
 
+  //find in collection return one record
+  /**
+    * @param futureCollection : Future[BSONCollection], collection to insert
+    * @param selector         : BSONDocument, filter
+    * @return Future[T], return the record, if not found return null
+    */
+  def searchAll[T](futureCollection: Future[BSONCollection],
+                   selector: BSONDocument ,limit : Int)(implicit handler: BSONDocumentReader[T] with BSONDocumentWriter[T] with BSONHandler[
+    BSONDocument, T]): Future[List[T]] = {
+    val findResult: Future[List[T]] = for {
+      col <- futureCollection
+      rs <- col
+        .find(selector )
+        .cursor[T]()
+        .collect(limit, Cursor.FailOnError[List[T]]())
+    } yield {
+      rs
+    }
+
+    findResult.recover {
+      case e: Throwable => {
+        throw new Exception(e.getMessage)
+      }
+    }
+    findResult
+  }
+
   //get grid file meta data in mongodb database
   /**
     * @param selector : BSONDocument, selector filter

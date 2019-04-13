@@ -12,7 +12,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 object RouteUtils extends RegisterRoute with LoginRoute with LogoutRoute with SignupStepsRoute
   with UpdateInterestRoute with UpdateInfoRoute with EmailNotificationRoute with UpdatePasswordRoute  with ForgotPasswordRoute
-with DeleteUserRoute{
+with DeleteUserRoute with GetUserDetailsRoute with GetFriendBirthdayDetailsRoute{
 
 /*  createUsersCollection()
   createOnlinesCollection()*/
@@ -81,7 +81,7 @@ with DeleteUserRoute{
                  materializer: ActorMaterializer) = {
      routeLogin(system) ~ routeLogout(system) ~ routeRegister(system) ~
        signupStepsRoute(system) ~ updateInterestRoute(system) ~ updateInfoRoute(system) ~ emailNotification(system) ~ updatePassword(system) ~ forgotPassword(system) ~
-    deleteUser(system)
+    deleteUser(system) ~ getUserDetailsRoute(system) ~ getFriendBirthdayDetailsRoute(system)
   }
 
   def logRoute(implicit ec: ExecutionContext,
