@@ -94,7 +94,7 @@ object UserDao {
 
   def getAllUsers: Future[List[DBRegisterDto]] = {
     searchAll[DBRegisterDto](usersCollection,
-      document("status" -> "test"/*active*/ /*,"_id" -> "5cb1d4070b00008300cbe1ea"*/) ,100)
+      document("status" -> "active"/*active*/ /*,"_id" -> "5cb1d4070b00008300cbe1ea"*/) ,100)
 
   }
 
