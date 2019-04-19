@@ -43,7 +43,7 @@ trait LoginRoute {
                 case Success(resp) =>
                   resp match {
                     case s: responseMessage => if (s.successmsg.nonEmpty) {
-                     // complete(HttpResponse(entity = HttpEntity(MediaTypes.`application/json`, s.toJson.toString)))
+                      // complete(HttpResponse(entity = HttpEntity(MediaTypes.`application/json`, s.toJson.toString)))
                       val credentials = (JWTCredentialsCreation ? dto.email).mapTo[scalaj.http.HttpResponse[String]]
                       implicit val formats = DefaultFormats
                       onComplete(credentials) {
@@ -52,8 +52,10 @@ trait LoginRoute {
                             case 201 => {
                               val parsedResp: TokenDetails = parse(res.body.toString).extract[TokenDetails]
                               val token = CommonUtils.createToken("HS256", parsedResp.key, parsedResp.secret)
-                              respondWithHeader(RawHeader("token", token)) {
+
+                              respondWithHeaders(List(RawHeader("token", token), RawHeader("consumer-id", parsedResp.id))) {
                                 complete(HttpResponse(entity = HttpEntity(MediaTypes.`application/json`, s.toJson.toString)))
+
                               }
 
                             }
