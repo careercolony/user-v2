@@ -11,6 +11,7 @@ import akka.http.scaladsl.server.Route
 import akka.pattern.ask
 import akka.util.Timeout
 import com.mj.users.model.JsonRepo._
+import com.mj.users.model.JsonRepo._
 import com.mj.users.model.{responseMessage, _}
 import com.mj.users.mongo.KafkaAccess
 import com.mj.users.tools.{CommonUtils, SchedulingValidator}
@@ -42,10 +43,10 @@ trait ForgotPasswordRoute extends KafkaAccess {
               onComplete(userResponse) {
                 case Success(resp) =>
                   resp match {
-                    case s: responseMessage  => if (s.successmsg.nonEmpty) {
-                      sendPostToKafka(dto.toJson.toString ,forgotTopic)
+                    case s : ForgotPasswordKafkaMsg =>
+                      sendPostToKafka(s.toJson.toString ,forgotTopic)
                       complete(HttpResponse(entity = HttpEntity(MediaTypes.`application/json`, s.toJson.toString)))
-                    }else
+                    case s: responseMessage  =>
                       complete(HttpResponse(status = BadRequest, entity = HttpEntity(MediaTypes.`application/json`, s.toJson.toString)))
                     case _ => complete(HttpResponse(status = BadRequest, entity = HttpEntity(MediaTypes.`application/json`, responseMessage("", resp.toString, "").toJson.toString)))
                   }

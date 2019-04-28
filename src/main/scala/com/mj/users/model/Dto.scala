@@ -96,6 +96,8 @@ case class UpdatePasswordDto(email: String, password: String, repassword: String
 
 case class ForgotPasswordDto(email: String)
 
+case class ForgotPasswordKafkaMsg(email: String , firstName : String , lastName : String )
+
 case class ConnectionsDto (memberID : String , conn_type : String , status : String )
 
 case class MultipleInvitation(memberID: String, connections: Option[List[ConnectionsDto]])
@@ -107,6 +109,8 @@ case class BirthdayDetails ( memberID : String , friendDetails : List[FriendBirt
 case class ListBirthdayDetails ( birthdayDetails : List[BirthdayDetails])
 
 object JsonRepo extends DefaultJsonProtocol with SprayJsonSupport {
+
+  implicit val forgotPWKafkaMsgFormats: RootJsonFormat[ForgotPasswordKafkaMsg] = jsonFormat3(ForgotPasswordKafkaMsg)
   implicit val connectionsDtoFormats: RootJsonFormat[ConnectionsDto] = jsonFormat3(ConnectionsDto)
   implicit val multipleInvitationFormats: RootJsonFormat[MultipleInvitation] = jsonFormat2(MultipleInvitation)
   implicit val friendBirthdayDetailsFormats: RootJsonFormat[FriendBirthdayDetails] = jsonFormat4(FriendBirthdayDetails)
