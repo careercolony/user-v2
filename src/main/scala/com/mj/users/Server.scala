@@ -48,10 +48,10 @@ object Server extends App {
   val deleteUserProcessor = system.actorOf(RoundRobinPool(20).props(Props[processor.DeleteUserProcessor]), "deleteUserProcessor")
   val FriendInvitationDispatcher = system.actorOf(RoundRobinPool(20).props(Props[dispatcher.FriendInvitationDispatcher]), "FriendInvitationDispatcher")
   val GetUserDetailsProcessor = system.actorOf(RoundRobinPool(20).props(Props[processor.GetUserDetailsProcessor]), "GetUserDetailsProcessor")
-  val BirthdayProcessor = system.actorOf(RoundRobinPool(20).props(Props[processor.BirthdayProcessor]), "BirthdayProcessor")
+  //val BirthdayProcessor = system.actorOf(RoundRobinPool(20).props(Props[processor.BirthdayProcessor]), "BirthdayProcessor")
   val GetFriendBirthdayDetailsProcessor = system.actorOf(RoundRobinPool(20).props(Props[processor.GetFriendBirthdayDetailsProcessor]), "GetFriendBirthdayDetailsProcessor")
   import system.dispatcher
-  system.scheduler.scheduleOnce(20 seconds , BirthdayProcessor ,"schedule")
+  //system.scheduler.scheduleOnce(20 seconds , BirthdayProcessor ,"schedule")
 
   Http().bindAndHandle(RouteUtils.logRoute, "0.0.0.0", port)
 

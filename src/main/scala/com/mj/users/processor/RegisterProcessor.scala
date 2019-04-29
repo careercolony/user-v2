@@ -39,7 +39,7 @@ class RegisterProcessor extends Actor with MessageConfig{
         case count if count > 0 => origin ! response
         case 0 => origin ! responseMessage("", s"insert record email : ${response.firstname}", "")
       })
-      })
+    })
 
 
 
