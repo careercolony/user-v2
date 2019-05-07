@@ -162,7 +162,7 @@ object UserDao {
   }
 
   def insertExperienceDetails(secondStepRequest: SecondSignupStep) = {
-    if (secondStepRequest.employmentStatus.toInt > 5) {
+    if (secondStepRequest.employmentStatus.toInt > 2) {
       Future {
         Education(
           BSONObjectID.generate().stringify,
