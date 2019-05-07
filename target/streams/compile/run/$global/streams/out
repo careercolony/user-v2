@@ -95,8 +95,8 @@
 [0m[[0mdebug[0m] [0m	/Users/carlnjoku/.ivy2/cache/org.xerial.snappy/snappy-java/bundles/snappy-java-1.1.1.7.jar[0m
 [0m[[0mdebug[0m] [0mWaiting for thread run-main-0 to terminate.[0m
 [0m[[0mdebug[0m] [0m	Thread run-main-0 exited.[0m
-[0m[[0mdebug[0m] [0mWaiting for thread New I/O worker #5 to terminate.[0m
-[0m[[0mdebug[0m] [0m	Thread users-cluster-13 exited.[0m
-[0m[[0mdebug[0m] [0mWaiting for thread users-cluster-akka.actor.default-dispatcher-5 to terminate.[0m
-[0m[[0mdebug[0m] [0m	Thread users-cluster-akka.actor.default-dispatcher-5 exited.[0m
-[0m[[0mdebug[0m] [0mWaiting for thread pool-11-thread-14 to terminate.[0m
+[0m[[0mdebug[0m] [0mWaiting for thread New I/O worker #6 to terminate.[0m
+[0m[[0mdebug[0m] [0m	Thread pool-8-thread-6 exited.[0m
+[0m[[0mdebug[0m] [0mWaiting for thread users-cluster-akka.actor.default-dispatcher-18 to terminate.[0m
+[0m[[0mdebug[0m] [0m	Thread users-cluster-akka.actor.default-dispatcher-18 exited.[0m
+[0m[[0mdebug[0m] [0mWaiting for thread users-cluster-akka.actor.default-dispatcher-15 to terminate.[0m

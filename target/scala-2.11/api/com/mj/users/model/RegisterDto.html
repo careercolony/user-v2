@@ -45,7 +45,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">RegisterDto</span><span class="params">(<span name="email">email: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="nickname">nickname: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="password">password: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="repassword">repassword: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="gender">gender: <span class="extype" name="scala.Int">Int</span></span>, <span name="firstname">firstname: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="lastname">lastname: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="contact_info">contact_info: <span class="extype" name="scala.Option">Option</span>[<a href="ContactInfo.html" class="extype" name="com.mj.users.model.ContactInfo">ContactInfo</a>]</span>, <span name="location">location: <span class="extype" name="scala.Option">Option</span>[<a href="Location.html" class="extype" name="com.mj.users.model.Location">Location</a>]</span>, <span name="connections">connections: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>, <span name="connection_requests">connection_requests: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>, <span name="friends_with_post">friends_with_post: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>, <span name="user_agent">user_agent: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+        <span class="name">RegisterDto</span><span class="params">(<span name="email">email: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="nickname">nickname: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="password">password: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="repassword">repassword: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="gender">gender: <span class="extype" name="scala.Int">Int</span></span>, <span name="firstname">firstname: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="lastname">lastname: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="contact_info">contact_info: <span class="extype" name="scala.Option">Option</span>[<a href="ContactInfo.html" class="extype" name="com.mj.users.model.ContactInfo">ContactInfo</a>]</span>, <span name="location">location: <span class="extype" name="scala.Option">Option</span>[<a href="Location.html" class="extype" name="com.mj.users.model.Location">Location</a>]</span>, <span name="connections">connections: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.List">List</span>[<a href="ConnectionsDto.html" class="extype" name="com.mj.users.model.ConnectionsDto">ConnectionsDto</a>]]</span>, <span name="user_agent">user_agent: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
       
@@ -89,7 +89,7 @@
         <div id="constructors" class="members">
               <h3>Instance Constructors</h3>
               <ol><li name="com.mj.users.model.RegisterDto#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(email:String,nickname:String,password:String,repassword:String,gender:Int,firstname:String,lastname:String,contact_info:Option[com.mj.users.model.ContactInfo],location:Option[com.mj.users.model.Location],connections:Option[List[String]],connection_requests:Option[List[String]],friends_with_post:Option[List[String]],user_agent:Option[String]):com.mj.users.model.RegisterDto"></a>
+      <a id="&lt;init&gt;(email:String,nickname:String,password:String,repassword:String,gender:Int,firstname:String,lastname:String,contact_info:Option[com.mj.users.model.ContactInfo],location:Option[com.mj.users.model.Location],connections:Option[List[com.mj.users.model.ConnectionsDto]],user_agent:Option[String]):com.mj.users.model.RegisterDto"></a>
       <a id="&lt;init&gt;:RegisterDto"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -97,10 +97,10 @@
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">RegisterDto</span><span class="params">(<span name="email">email: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="nickname">nickname: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="password">password: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="repassword">repassword: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="gender">gender: <span class="extype" name="scala.Int">Int</span></span>, <span name="firstname">firstname: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="lastname">lastname: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="contact_info">contact_info: <span class="extype" name="scala.Option">Option</span>[<a href="ContactInfo.html" class="extype" name="com.mj.users.model.ContactInfo">ContactInfo</a>]</span>, <span name="location">location: <span class="extype" name="scala.Option">Option</span>[<a href="Location.html" class="extype" name="com.mj.users.model.Location">Location</a>]</span>, <span name="connections">connections: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>, <span name="connection_requests">connection_requests: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>, <span name="friends_with_post">friends_with_post: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>, <span name="user_agent">user_agent: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span>
+        <span class="name">RegisterDto</span><span class="params">(<span name="email">email: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="nickname">nickname: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="password">password: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="repassword">repassword: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="gender">gender: <span class="extype" name="scala.Int">Int</span></span>, <span name="firstname">firstname: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="lastname">lastname: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="contact_info">contact_info: <span class="extype" name="scala.Option">Option</span>[<a href="ContactInfo.html" class="extype" name="com.mj.users.model.ContactInfo">ContactInfo</a>]</span>, <span name="location">location: <span class="extype" name="scala.Option">Option</span>[<a href="Location.html" class="extype" name="com.mj.users.model.Location">Location</a>]</span>, <span name="connections">connections: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.List">List</span>[<a href="ConnectionsDto.html" class="extype" name="com.mj.users.model.ConnectionsDto">ConnectionsDto</a>]]</span>, <span name="user_agent">user_agent: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#com.mj.users.model.RegisterDto@&lt;init&gt;(email:String,nickname:String,password:String,repassword:String,gender:Int,firstname:String,lastname:String,contact_info:Option[com.mj.users.model.ContactInfo],location:Option[com.mj.users.model.Location],connections:Option[List[String]],connection_requests:Option[List[String]],friends_with_post:Option[List[String]],user_agent:Option[String]):com.mj.users.model.RegisterDto" title="Permalink" target="_top">
+      <a href="../../../../index.html#com.mj.users.model.RegisterDto@&lt;init&gt;(email:String,nickname:String,password:String,repassword:String,gender:Int,firstname:String,lastname:String,contact_info:Option[com.mj.users.model.ContactInfo],location:Option[com.mj.users.model.Location],connections:Option[List[com.mj.users.model.ConnectionsDto]],user_agent:Option[String]):com.mj.users.model.RegisterDto" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -205,36 +205,19 @@
     </span>)</span>
               
         </dd></dl></div>
-    </li><li name="com.mj.users.model.RegisterDto#connection_requests" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="connection_requests:Option[List[String]]"></a>
-      <a id="connection_requests:Option[List[String]]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">connection_requests</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.mj.users.model.RegisterDto@connection_requests:Option[List[String]]" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
     </li><li name="com.mj.users.model.RegisterDto#connections" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="connections:Option[List[String]]"></a>
-      <a id="connections:Option[List[String]]"></a>
+      <a id="connections:Option[List[com.mj.users.model.ConnectionsDto]]"></a>
+      <a id="connections:Option[List[ConnectionsDto]]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">connections</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
+        <span class="name">connections</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.List">List</span>[<a href="ConnectionsDto.html" class="extype" name="com.mj.users.model.ConnectionsDto">ConnectionsDto</a>]]</span>
       </span>
       </h4><span class="permalink">
-      <a href="../../../../index.html#com.mj.users.model.RegisterDto@connections:Option[List[String]]" title="Permalink" target="_top">
+      <a href="../../../../index.html#com.mj.users.model.RegisterDto@connections:Option[List[com.mj.users.model.ConnectionsDto]]" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
@@ -326,23 +309,6 @@
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.mj.users.model.RegisterDto@firstname:String" title="Permalink" target="_top">
-        <img src="../../../../lib/permalink.png" alt="Permalink" />
-      </a>
-    </span>
-      
-    </li><li name="com.mj.users.model.RegisterDto#friends_with_post" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="friends_with_post:Option[List[String]]"></a>
-      <a id="friends_with_post:Option[List[String]]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">friends_with_post</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>]]</span>
-      </span>
-      </h4><span class="permalink">
-      <a href="../../../../index.html#com.mj.users.model.RegisterDto@friends_with_post:Option[List[String]]" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>

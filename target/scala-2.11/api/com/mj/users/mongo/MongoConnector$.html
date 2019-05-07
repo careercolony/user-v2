@@ -481,6 +481,23 @@
       </a>
     </span>
       <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">futureCollection</dt><dd class="cmt"><p>: Future[BSONCollection], collection to insert</p></dd><dt class="param">selector</dt><dd class="cmt"><p>: BSONDocument, filter</p></dd><dt>returns</dt><dd class="cmt"><p>Future[T], return the record, if not found return null</p></dd></dl></div>
+    </li><li name="com.mj.users.mongo.MongoConnector#searchAll" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="searchAll[T](futureCollection:scala.concurrent.Future[reactivemongo.api.collections.bson.BSONCollection],selector:reactivemongo.bson.BSONDocument,limit:Int)(implicithandler:reactivemongo.bson.BSONDocumentReader[T]withreactivemongo.bson.BSONDocumentWriter[T]withreactivemongo.bson.BSONHandler[reactivemongo.bson.BSONDocument,T]):scala.concurrent.Future[List[T]]"></a>
+      <a id="searchAll[T](Future[BSONCollection],BSONDocument,Int)(BSONDocumentReader[T]withBSONDocumentWriter[T]withBSONHandler[BSONDocument,T]):Future[List[T]]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">searchAll</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="futureCollection">futureCollection: <span class="extype" name="scala.concurrent.Future">Future</span>[<span class="extype" name="reactivemongo.api.collections.bson.BSONCollection">BSONCollection</span>]</span>, <span name="selector">selector: <span class="extype" name="reactivemongo.bson.BSONDocument">BSONDocument</span></span>, <span name="limit">limit: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="handler">handler: <span class="extype" name="reactivemongo.bson.BSONDocumentReader">BSONDocumentReader</span>[<span class="extype" name="com.mj.users.mongo.MongoConnector.searchAll.T">T</span>] with <span class="extype" name="reactivemongo.bson.BSONDocumentWriter">BSONDocumentWriter</span>[<span class="extype" name="com.mj.users.mongo.MongoConnector.searchAll.T">T</span>] with <span class="extype" name="reactivemongo.bson.BSONHandler">BSONHandler</span>[<span class="extype" name="reactivemongo.bson.BSONDocument">BSONDocument</span>, <span class="extype" name="com.mj.users.mongo.MongoConnector.searchAll.T">T</span>]</span>)</span><span class="result">: <span class="extype" name="scala.concurrent.Future">Future</span>[<span class="extype" name="scala.List">List</span>[<span class="extype" name="com.mj.users.mongo.MongoConnector.searchAll.T">T</span>]]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.mj.users.mongo.MongoConnector$@searchAll[T](futureCollection:scala.concurrent.Future[reactivemongo.api.collections.bson.BSONCollection],selector:reactivemongo.bson.BSONDocument,limit:Int)(implicithandler:reactivemongo.bson.BSONDocumentReader[T]withreactivemongo.bson.BSONDocumentWriter[T]withreactivemongo.bson.BSONHandler[reactivemongo.bson.BSONDocument,T]):scala.concurrent.Future[List[T]]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">futureCollection</dt><dd class="cmt"><p>: Future[BSONCollection], collection to insert</p></dd><dt class="param">selector</dt><dd class="cmt"><p>: BSONDocument, filter</p></dd><dt>returns</dt><dd class="cmt"><p>Future[T], return the record, if not found return null</p></dd></dl></div>
     </li><li name="scala.AnyRef#synchronized" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="synchronized[T0](x$1:=&gt;T0):T0"></a>
       <a id="synchronized[T0](⇒T0):T0"></a>
@@ -528,6 +545,25 @@
       </span>
       </h4><span class="permalink">
       <a href="../../../../index.html#com.mj.users.mongo.MongoConnector$@update(futureCollection:scala.concurrent.Future[reactivemongo.api.collections.bson.BSONCollection],selector:reactivemongo.bson.BSONDocument,update:reactivemongo.bson.BSONDocument,multi:Boolean):scala.concurrent.Future[String]" title="Permalink" target="_top">
+        <img src="../../../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      <p class="shortcomment cmt">update in collection
+</p><div class="fullcomment"><div class="comment cmt"><p>update in collection
+</p></div><dl class="paramcmts block"><dt class="param">futureCollection</dt><dd class="cmt"><p>: Future[BSONCollection], collection to update</p></dd><dt class="param">selector</dt><dd class="cmt"><p>: BSONDocument, filter</p></dd><dt class="param">update</dt><dd class="cmt"><p>: BSONDocument, update info</p></dd><dt class="param">multi</dt><dd class="cmt"><p>: Boolean = false, update multi records</p></dd><dt>returns</dt><dd class="cmt"><p>Future[UpdateResult], return the update result</p></dd></dl></div>
+    </li><li name="com.mj.users.mongo.MongoConnector#updateDetails" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="updateDetails[T](futureCollection:scala.concurrent.Future[reactivemongo.api.collections.bson.BSONCollection],selector:reactivemongo.bson.BSONDocument,update:T,multi:Boolean,upsert:Boolean)(implicithandler:reactivemongo.bson.BSONDocumentReader[T]withreactivemongo.bson.BSONDocumentWriter[T]withreactivemongo.bson.BSONHandler[reactivemongo.bson.BSONDocument,T]):scala.concurrent.Future[String]"></a>
+      <a id="updateDetails[T](Future[BSONCollection],BSONDocument,T,Boolean,Boolean)(BSONDocumentReader[T]withBSONDocumentWriter[T]withBSONHandler[BSONDocument,T]):Future[String]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">updateDetails</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="futureCollection">futureCollection: <span class="extype" name="scala.concurrent.Future">Future</span>[<span class="extype" name="reactivemongo.api.collections.bson.BSONCollection">BSONCollection</span>]</span>, <span name="selector">selector: <span class="extype" name="reactivemongo.bson.BSONDocument">BSONDocument</span></span>, <span name="update">update: <span class="extype" name="com.mj.users.mongo.MongoConnector.updateDetails.T">T</span></span>, <span name="multi">multi: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>, <span name="upsert">upsert: <span class="extype" name="scala.Boolean">Boolean</span> = <span class="symbol">false</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="handler">handler: <span class="extype" name="reactivemongo.bson.BSONDocumentReader">BSONDocumentReader</span>[<span class="extype" name="com.mj.users.mongo.MongoConnector.updateDetails.T">T</span>] with <span class="extype" name="reactivemongo.bson.BSONDocumentWriter">BSONDocumentWriter</span>[<span class="extype" name="com.mj.users.mongo.MongoConnector.updateDetails.T">T</span>] with <span class="extype" name="reactivemongo.bson.BSONHandler">BSONHandler</span>[<span class="extype" name="reactivemongo.bson.BSONDocument">BSONDocument</span>, <span class="extype" name="com.mj.users.mongo.MongoConnector.updateDetails.T">T</span>]</span>)</span><span class="result">: <span class="extype" name="scala.concurrent.Future">Future</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../../../index.html#com.mj.users.mongo.MongoConnector$@updateDetails[T](futureCollection:scala.concurrent.Future[reactivemongo.api.collections.bson.BSONCollection],selector:reactivemongo.bson.BSONDocument,update:T,multi:Boolean,upsert:Boolean)(implicithandler:reactivemongo.bson.BSONDocumentReader[T]withreactivemongo.bson.BSONDocumentWriter[T]withreactivemongo.bson.BSONHandler[reactivemongo.bson.BSONDocument,T]):scala.concurrent.Future[String]" title="Permalink" target="_top">
         <img src="../../../../lib/permalink.png" alt="Permalink" />
       </a>
     </span>
