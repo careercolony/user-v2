@@ -64,6 +64,7 @@ class BirthdayProcessor extends Actor with MessageConfig {
         }
         ).map(allUserDbDetails => {
         println("all User Db Details:" + allUserDbDetails)
+        
         insertBirthdayDetails(ListBirthdayDetails(allUserDbDetails.filter(p => p.memberID != null && p.friendDetails.size > 0))).map(resp => origin ! resp)
       }
       )

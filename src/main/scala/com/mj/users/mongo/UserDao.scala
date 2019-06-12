@@ -27,11 +27,15 @@ object UserDao {
 
   implicit def locationHandler = Macros.handler[Location]
 
+  implicit def webprofileHandler = Macros.handler[WebProfile]
+
   implicit def contactStatusHandler = Macros.handler[ContactInfo]
 
   implicit def userExperienceHandler = Macros.handler[userExperience]
 
   implicit def userEducationHandler = Macros.handler[userEducation]
+
+  implicit def userIntroHandler = Macros.handler[Intro]
 
   implicit def connectionsDtoHandler = Macros.handler[ConnectionsDto]
 
@@ -104,7 +108,52 @@ object UserDao {
 
   }
 
+/**
   def updateUserDetails(secondStepRequest: SecondSignupStep ,userObj : Option[DBRegisterDto]): Future[String] = {
+
+
+    val interests = if(secondStepRequest.interest.isDefined) Some(secondStepRequest.interest.get.split(",").toList) else None
+    val conn = if(secondStepRequest.connections.isDefined) Some(secondStepRequest.connections.get) else None
+    val user = if (secondStepRequest.employmentStatus.toInt > 5) {
+      userObj.get.copy(
+        intro = Some(Intro(secondStepRequest.position, secondStepRequest.employer, secondStepRequest.school_name,
+          secondStepRequest.field_of_study, secondStepRequest.degree)),
+        interest_on_colony =secondStepRequest.interest_on_colony,
+        country = Some(secondStepRequest.country),
+        userIP = secondStepRequest.userIP,
+        employmentStatus = Some(secondStepRequest.employmentStatus),
+        secondSignup_flag = Some(true),
+        updated_date = Some(DateTime.now.toString("yyyy-MM-dd'T'HH:mm:ssZ")),
+        registerDto = userObj.get.registerDto.copy(connections = conn),
+        interest = interests
+      )
+
+    } else {
+
+      userObj.get.copy(
+        intro =Some(Intro(secondStepRequest.headline, secondStepRequest.subheadline, secondStepRequest.school_name,
+          secondStepRequest.field_of_study, secondStepRequest.degree)),
+        interest_on_colony =secondStepRequest.interest_on_colony,
+        country = Some(secondStepRequest.country),
+        userIP = secondStepRequest.userIP,
+        employmentStatus = Some(secondStepRequest.employmentStatus),
+        secondSignup_flag = Some(true),
+        updated_date = Some(DateTime.now.toString("yyyy-MM-dd'T'HH:mm:ssZ")),
+        registerDto = userObj.get.registerDto.copy(connections = conn),
+        interest = interests
+      )
+
+
+    }
+
+    updateDetails(usersCollection, {
+      BSONDocument("_id" -> secondStepRequest.memberID,"status" -> active)
+    }, user).map(resp => resp)
+
+  }
+*/
+
+def updateUserDetails(secondStepRequest: SecondSignupStep ,userObj : Option[DBRegisterDto]): Future[String] = {
 
 
     val interests = if(secondStepRequest.interest.isDefined) Some(secondStepRequest.interest.get.split(",").toList) else None
@@ -124,9 +173,15 @@ object UserDao {
       )
 
     } else {
+      
+      
+      val positionVal: String = secondStepRequest.position match { case None => "" case Some(str) => str }
+      val employerVal: String = secondStepRequest.employer match { case None => "" case Some(str) => str }
+      
+      val headline = positionVal+" @ "+employerVal
 
       userObj.get.copy(
-        experience =Some(userExperience(secondStepRequest.position, secondStepRequest.career_level,
+        experience =Some(userExperience(headline, secondStepRequest.position, secondStepRequest.career_level,
           secondStepRequest.description, secondStepRequest.employer, secondStepRequest.start_month, secondStepRequest.start_year,
           secondStepRequest.end_month, secondStepRequest.end_year, Some(secondStepRequest.current), secondStepRequest.industry)),
         interest_on_colony =secondStepRequest.interest_on_colony,
@@ -147,7 +202,6 @@ object UserDao {
     }, user).map(resp => resp)
 
   }
-
   def insertLoginHistory(memberId: String, user_Agent: Option[String], location: Option[Location]) = {
     for {
 
@@ -244,7 +298,10 @@ object UserDao {
       BSONDocument("_id" -> personalInfo.memberID)
     }, {
       BSONDocument(
-        "$set" -> BSONDocument("registerDto.contact_info" -> personalInfo.contact_info,"updated_date" -> Some(DateTime.now.toString("yyyy-MM-dd'T'HH:mm:ssZ"))
+        "$set" -> BSONDocument("registerDto.contact_info" -> personalInfo.contact_info, 
+                              "registerDto.firstname" -> personalInfo.firstname, "registerDto.lastname" -> personalInfo.lastname, "registerDto.summary"-> personalInfo.summary,
+                               "updated_date" -> Some(DateTime.now.toString("yyyy-MM-dd'T'HH:mm:ssZ")
+                              )
         ))
     }).map(resp => resp)
 

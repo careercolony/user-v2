@@ -41,9 +41,6 @@ class RegisterProcessor extends Actor with MessageConfig{
       })
     })
 
-
-
-
       result.recover {
         case e: Throwable => {
           origin ! responseMessage("", e.getMessage, "")
