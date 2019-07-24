@@ -40,11 +40,6 @@ case class Location(city: Option[String], state: Option[String], country: Option
 case class WebProfile(name: String, link:String)
 case class ContactInfo(address: String, city: String, state: String, country: String, email: Option[String], mobile_phone: Option[String], birth_day: Option[Int], birth_month: Option[Int], birth_year: Option[Int], web_profile: Option[List[WebProfile]])
 
-//SecondSignupStep api user response
-case class SecondSignupStep(memberID: String, country: String, employmentStatus: String,
-                            employer: Option[String], position: Option[String], career_level: Option[String], description: Option[String], industry: Option[String], degree: Option[String],
-                            school_name: Option[String], field_of_study: Option[String], activities: Option[String], current: Boolean, interest_on_colony: Option[String], userIP: Option[String],
-                            updated_date: Option[String], start_month: Option[String], start_year: Option[String], end_month: Option[String], end_year: Option[String], connections: Option[List[ConnectionsDto]],interest: Option[String])
 
 //Experience Collection
 
@@ -65,6 +60,14 @@ case class Education(eduID: String, status : String , memberID: String, school_n
 
 case class userEducation(school_name: Option[String], field_of_study: Option[String], degree: Option[String],
                          start_year: Option[String], end_year: Option[String], activities: Option[String])
+
+
+//SecondSignupStep api user response
+case class SecondSignupStep(memberID: String, country: String, employmentStatus: String,
+                            employer: Option[String], position: Option[String], career_level: Option[String], description: Option[String], industry: Option[String], degree: Option[String],
+                            school_name: Option[String], field_of_study: Option[String], activities: Option[String], current: Boolean, interest_on_colony: Option[String], userIP: Option[String],
+                            updated_date: Option[String], start_month: Option[String], start_year: Option[String], end_month: Option[String], end_year: Option[String], connections: Option[List[ConnectionsDto]],interest: Option[String])
+
 
 case class SessionStatus(sessionid: String, newCount: Int)
 
@@ -143,5 +146,7 @@ object JsonRepo extends DefaultJsonProtocol with SprayJsonSupport {
   implicit val userIntroFormats: RootJsonFormat[Intro] = jsonFormat5(Intro)
   implicit val sessionStatusFormats: RootJsonFormat[SessionStatus] = jsonFormat2(SessionStatus)
   implicit val dBRegisterDtoFormats: RootJsonFormat[DBRegisterDto] = jsonFormat22(DBRegisterDto)
+  implicit val experinceFormats: RootJsonFormat[Experience] = jsonFormat15(Experience)
+
 }
 

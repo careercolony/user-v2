@@ -1,7 +1,7 @@
 package com.mj.users.processor
 
 import java.util.concurrent.TimeUnit
-
+import org.joda.time.DateTime
 import akka.actor.Actor
 import akka.util.Timeout
 import com.mj.users.config.MessageConfig
@@ -32,7 +32,7 @@ class RegisterProcessor extends Actor with MessageConfig{
             }
           }
         ).map(response =>{
-        insertLoginHistory(response.memberID,resgisterDto.user_agent,resgisterDto.location)
+        insertLoginHistory(response.memberID,resgisterDto.user_agent,resgisterDto.location, DateTime.now.toString("yyyy-MM-dd'T'HH:mm:ssZ"))
       val script = s"CREATE (s:users {memberID:'${response.memberID}', firstname:'${ response.firstname }', lastname:'${ response.lastname }', email:'${ resgisterDto.email }', password:'${resgisterDto.password}' , avatar:'${response.avatar}', signupdate: TIMESTAMP()}) "
 
       connectNeo4j(script).map(resp => resp match {

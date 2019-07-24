@@ -2,6 +2,8 @@ package com.mj.users.processor
 
 import java.util.concurrent.TimeUnit
 
+import org.joda.time.DateTime
+
 import akka.actor.Actor
 import akka.util.Timeout
 import com.mj.users.config.MessageConfig
@@ -31,7 +33,7 @@ class LoginProcessor extends Actor with MessageConfig{
         .flatMap(user => Future {
           user.filter(_.registerDto.password == sha1(loginDto.password)).map(_._id).map(uid => {
             loginUpdate(uid,loginDto)
-            insertLoginHistory(uid,loginDto.user_agent,loginDto.location)
+            insertLoginHistory(uid,loginDto.user_agent,loginDto.location, DateTime.now.toString("yyyy-MM-dd'T'HH:mm:ssZ") )
             uid
           })
         }).flatMap(uid =>

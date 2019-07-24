@@ -40,6 +40,7 @@ object Application {
 
   val signupTopic: String = config.getString("kafka.signupTopic")
   val forgotTopic: String = config.getString("kafka.forgotTopic")
+  val experienceTopic: String = config.getString("kafka.experienceTopic")
 
   val active: String = config.getString("status.active")
   val deleted: String = config.getString("status.deleted")

@@ -10,7 +10,7 @@ import akka.http.scaladsl.server.Route
 import akka.pattern.ask
 import akka.util.Timeout
 import com.mj.users.model.JsonRepo._
-import com.mj.users.model.{RegisterDtoResponse, SecondSignupStep, responseMessage}
+import com.mj.users.model.{RegisterDtoResponse, SecondSignupStep,  responseMessage}
 import org.slf4j.LoggerFactory
 import spray.json._
 

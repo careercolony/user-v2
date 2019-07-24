@@ -13,6 +13,11 @@ import reactivemongo.bson._
 import scala.concurrent.Future
 import com.mj.users.config.Application._
 import org.joda.time.DateTime
+
+import com.mj.users.model.JsonRepo._
+import spray.json._
+
+
 object UserDao {
 
   val usersCollection: Future[BSONCollection] = db.map(_.collection[BSONCollection]("users"))
@@ -41,7 +46,7 @@ object UserDao {
 
   implicit def registerHandler = Macros.handler[RegisterDto]
 
-  implicit def experienceHandler = Macros.handler[Experience]
+  
 
   implicit def educationeHandler = Macros.handler[Education]
 
@@ -54,6 +59,8 @@ object UserDao {
   implicit def dbRegisterHandler = Macros.handler[DBRegisterDto]
 
   implicit def loginHistoryRegisterHandler = Macros.handler[loginHistory]
+
+  implicit def experienceHandler = Macros.handler[Experience]
 
   val defaultAvatar = getDefaultAvatar
 
@@ -178,8 +185,8 @@ def updateUserDetails(secondStepRequest: SecondSignupStep ,userObj : Option[DBRe
       val positionVal: String = secondStepRequest.position match { case None => "" case Some(str) => str }
       val employerVal: String = secondStepRequest.employer match { case None => "" case Some(str) => str }
       
-      val headline = positionVal+" @ "+employerVal
-
+      val headline = positionVal+"@"+employerVal
+      println(headline)
       userObj.get.copy(
         experience =Some(userExperience(headline, secondStepRequest.position, secondStepRequest.career_level,
           secondStepRequest.description, secondStepRequest.employer, secondStepRequest.start_month, secondStepRequest.start_year,
@@ -202,7 +209,7 @@ def updateUserDetails(secondStepRequest: SecondSignupStep ,userObj : Option[DBRe
     }, user).map(resp => resp)
 
   }
-  def insertLoginHistory(memberId: String, user_Agent: Option[String], location: Option[Location]) = {
+  def insertLoginHistory(memberId: String, user_Agent: Option[String], location: Option[Location], loginTime:String) = {
     for {
 
       userData <- Future {
@@ -244,10 +251,16 @@ def updateUserDetails(secondStepRequest: SecondSignupStep ,userObj : Option[DBRe
           secondStepRequest.description,
           secondStepRequest.employer,
           secondStepRequest.start_month,
-          secondStepRequest.start_year
-          , secondStepRequest.end_month, secondStepRequest.end_year, None, None, Some(secondStepRequest.current), secondStepRequest.industry
+          secondStepRequest.start_year, 
+          secondStepRequest.end_month,
+          secondStepRequest.end_year, 
+          None, None, 
+          Some(secondStepRequest.current), secondStepRequest.industry
         )
-      }.flatMap(expirenceData => insert[Experience](experienceCollection, expirenceData).map(response => response))
+      }.flatMap(expirenceData => insert[Experience](experienceCollection, expirenceData).map(response => 
+          response.toJson.toString
+        )
+      )
     }
   }
 
