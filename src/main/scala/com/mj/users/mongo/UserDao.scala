@@ -43,6 +43,7 @@ object UserDao {
   implicit def userIntroHandler = Macros.handler[Intro]
 
   implicit def connectionsDtoHandler = Macros.handler[ConnectionsDto]
+  
 
   implicit def registerHandler = Macros.handler[RegisterDto]
 
@@ -106,7 +107,6 @@ object UserDao {
   def getAllUsers: Future[List[DBRegisterDto]] = {
     searchAll[DBRegisterDto](usersCollection,
       document("status" -> "active"/*active*/ /*,"_id" -> "5cb1d4070b00008300cbe1ea"*/) ,100)
-
   }
 
   def getFiendBirthdayDetails(memberID : String) = {
@@ -168,7 +168,7 @@ def updateUserDetails(secondStepRequest: SecondSignupStep ,userObj : Option[DBRe
     val user = if (secondStepRequest.employmentStatus.toInt > 5) {
       userObj.get.copy(
         education =Some(userEducation(secondStepRequest.school_name,
-          secondStepRequest.field_of_study, secondStepRequest.degree, secondStepRequest.start_year, secondStepRequest.end_year, secondStepRequest.activities)),
+          secondStepRequest.field_of_study, secondStepRequest.degree, secondStepRequest.start_year, secondStepRequest.end_year, secondStepRequest.location)),
         interest_on_colony =secondStepRequest.interest_on_colony,
         country = Some(secondStepRequest.country),
         userIP = secondStepRequest.userIP,
@@ -234,11 +234,12 @@ def updateUserDetails(secondStepRequest: SecondSignupStep ,userObj : Option[DBRe
           secondStepRequest.degree,
           secondStepRequest.start_year,
           secondStepRequest.end_year,
-          secondStepRequest.activities,
+          secondStepRequest.location,
+          secondStepRequest.employmentStatus,
           None,
           None
         )
-      }.flatMap(eductionData => insert[Education](eductionCollection, eductionData).map(response => response))
+      }.flatMap(eductionData => insert[Education](eductionCollection, eductionData).map(response => response.toJson.toString))
 
     } else {
       Future {
@@ -254,6 +255,7 @@ def updateUserDetails(secondStepRequest: SecondSignupStep ,userObj : Option[DBRe
           secondStepRequest.start_year, 
           secondStepRequest.end_month,
           secondStepRequest.end_year, 
+          secondStepRequest.employmentStatus,
           None, None, 
           Some(secondStepRequest.current), secondStepRequest.industry
         )

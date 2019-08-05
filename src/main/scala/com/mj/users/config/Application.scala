@@ -48,4 +48,12 @@ object Application {
   val brokers: String = config.getString("kafka.brokers")
 
   val friendInvitationUrl = config.getString("friend.invitation.url")
+
+
+  val domainName: String = config.getString("mailgun.domainName")
+  val apiKey: String = config.getString("mailgun.apiKey")
+  val fromEmailAddress: String = config.getString("mailgun.fromEmailAddress")
+  val fromEmailName: String = config.getString("mailgun.fromEmailName")
+  val RegisterSubject: String = config.getString("mailgun.RegisterSubject")
+
 }

@@ -23,10 +23,11 @@ class FriendInvitationDispatcher extends Actor with DiagnosticActorLogging {
     case invitations : MultipleInvitation =>
       val origin = sender()
       implicit val timeout = Timeout(20, TimeUnit.SECONDS)
+      println("show something")
       println("request for friends invitation :"+invitations.toJson.toString)
       val result = Try{Http(friendInvitationUrl).header("Content-Type", "application/json").postData(invitations.toJson.toString).asString}.map(
        response =>  {
-         println("resp: "+response)
+         println("resp111: "+response)
          origin ! HttpResponse(response, 200, Map.empty)}
       )
 

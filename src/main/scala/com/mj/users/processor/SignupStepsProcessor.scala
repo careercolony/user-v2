@@ -30,13 +30,15 @@ class SignupStepsProcessor extends Actor with MessageConfig with KafkaAccess {
       val friendInvitationDispatcher = system.actorSelection("/*/FriendInvitationDispatcher")
       val origin = sender()
       println("here")
-      
+      println(secondStepRequest.memberID)
+      println(secondStepRequest.employmentStatus)
       val result = getUserDetailsById(secondStepRequest.memberID).map(userObj => {
+        println(secondStepRequest)
         updateUserDetails(secondStepRequest, userObj)
           .map(updatedResult =>
             Future {
               insertExperienceDetails(secondStepRequest).map(response => {
-                //println(response)
+                println("The submitted data" + secondStepRequest)
                 sendPostToKafka(response.toString, experienceTopic)
                 if (userObj.get.email_verification_flag.isDefined && userObj.get.email_verification_flag.get && secondStepRequest.connections.isDefined) {
                   //calling for friends invitations

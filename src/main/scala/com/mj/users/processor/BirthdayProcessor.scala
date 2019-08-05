@@ -33,7 +33,7 @@ class BirthdayProcessor extends Actor with MessageConfig {
               if (userObj.registerDto.connections.isDefined) {
                 val friendBirthdayDetails = userObj.registerDto.connections.get.filter(p => p.status == "active").map(
                   activeUser => {
-                    val contactInfo = userDetails.filter(p => p._id == activeUser.memberID).head.registerDto.contact_info
+                    val contactInfo = userDetails.filter(p => p._id == activeUser.inviteeID).head.registerDto.contact_info
                     println("contact Info" + contactInfo)
                     val birthdayDetails = if (contactInfo.isDefined) {
                       if (contactInfo.get.birth_month.isDefined && contactInfo.get.birth_day.isDefined && contactInfo.get.birth_year.isDefined) {
@@ -42,7 +42,7 @@ class BirthdayProcessor extends Actor with MessageConfig {
                         val period = Days.daysBetween(birthDate, now)
                         println("period" + period)
                         if (period.getDays < 3)
-                          FriendBirthdayDetails(activeUser.memberID, contactInfo.get.birth_day.get.toString, contactInfo.get.birth_month.get.toString, contactInfo.get.birth_year.get.toString)
+                          FriendBirthdayDetails(activeUser.inviteeID, contactInfo.get.birth_day.get.toString, contactInfo.get.birth_month.get.toString, contactInfo.get.birth_year.get.toString)
                         else
                           FriendBirthdayDetails("", "", "", "")
                       } else

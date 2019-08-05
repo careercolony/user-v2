@@ -38,7 +38,15 @@ libraryDependencies ++= {
     "com.jason-goodwin" %% "authentikat-jwt" % "0.4.1",
     "org.scalaj" %% "scalaj-http" % "2.3.0",
     "org.neo4j.driver" % "neo4j-java-driver" % "1.0.4",
-    "com.typesafe.akka" %% "akka-stream-kafka" % "0.11-M2"
+    "com.typesafe.akka" %% "akka-stream-kafka" % "0.11-M2",
+
+
+    "org.matthicks" %% "mailgun4s" % "1.0.9",
+    "com.mashape.unirest" % "unirest-java" % "1.4.9",
+    "org.apache.httpcomponents" % "httpclient" % "4.3.6",
+    "org.apache.httpcomponents" % "httpasyncclient" % "4.0.2",
+    "org.apache.httpcomponents" % "httpmime" % "4.3.6",
+    "org.json" % "json" % "20140107"
 
  )
 }

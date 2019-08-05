@@ -29,6 +29,7 @@ class EmailNotificationUserProcessor extends Actor with MessageConfig {
       val result = getUserDetailsById(memberID).map(userObj => {
         if (userObj.get.connections_flag.isDefined && !userObj.get.connections_flag.get && userObj.get.secondSignup_flag.isDefined && userObj.get.secondSignup_flag.get && userObj.get.registerDto.connections.isDefined) {
           //calling for friends invitations
+          println("raw connection"+userObj.get.registerDto.connections)
           val resp = (friendInvitationDispatcher ? MultipleInvitation(memberID, userObj.get.registerDto.connections)).mapTo[scalaj.http.HttpResponse[String]]
           implicit val formats = DefaultFormats
 

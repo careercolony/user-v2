@@ -45,7 +45,7 @@ case class ContactInfo(address: String, city: String, state: String, country: St
 
 case class Experience(expID: String, status : String , memberID: String, position: Option[String], career_level: Option[String], description: Option[String], employer: Option[String],
                       start_month: Option[String],
-                      start_year: Option[String], end_month: Option[String], end_year: Option[String], created_date: Option[String], updated_date: Option[String],
+                      start_year: Option[String], end_month: Option[String], end_year: Option[String], employmentStatus:String, created_date: Option[String], updated_date: Option[String],
                       current: Option[Boolean], industry: Option[String]
                      )
 case class Intro(current_position: Option[String], current_employer: Option[String], school_name: Option[String], field_of_study: Option[String], degree: Option[String])
@@ -56,18 +56,17 @@ case class userExperience(headline: String, position: Option[String], career_lev
 
 //Education Collection
 case class Education(eduID: String, status : String , memberID: String, school_name: Option[String], field_of_study: Option[String], degree: Option[String],
-                     start_year: Option[String], end_year: Option[String], activities: Option[String], created_date: Option[String], updated_date: Option[String])
+                     start_year: Option[String], end_year: Option[String], lcocation: Option[String], employmentStatus:String, created_date: Option[String], updated_date: Option[String])
 
 case class userEducation(school_name: Option[String], field_of_study: Option[String], degree: Option[String],
-                         start_year: Option[String], end_year: Option[String], activities: Option[String])
+                         start_year: Option[String], end_year: Option[String], location: Option[String])
 
 
-//SecondSignupStep api user response
+
 case class SecondSignupStep(memberID: String, country: String, employmentStatus: String,
                             employer: Option[String], position: Option[String], career_level: Option[String], description: Option[String], industry: Option[String], degree: Option[String],
-                            school_name: Option[String], field_of_study: Option[String], activities: Option[String], current: Boolean, interest_on_colony: Option[String], userIP: Option[String],
+                            school_name: Option[String], field_of_study: Option[String], location: Option[String], current: Boolean, interest_on_colony: Option[String], userIP: Option[String],
                             updated_date: Option[String], start_month: Option[String], start_year: Option[String], end_month: Option[String], end_year: Option[String], connections: Option[List[ConnectionsDto]],interest: Option[String])
-
 
 case class SessionStatus(sessionid: String, newCount: Int)
 
@@ -103,7 +102,7 @@ case class ForgotPasswordDto(email: String)
 
 case class ForgotPasswordKafkaMsg(email: String , firstName : String , lastName : String )
 
-case class ConnectionsDto (memberID : String , conn_type : String , status : String )
+case class ConnectionsDto (inviteeID : String , conn_type : String , status : String )
 
 case class MultipleInvitation(memberID: String, connections: Option[List[ConnectionsDto]])
 
@@ -112,6 +111,8 @@ case class FriendBirthdayDetails(memberID : String ,  birth_day: String, birth_m
 case class BirthdayDetails ( memberID : String , friendDetails : List[FriendBirthdayDetails])
 
 case class ListBirthdayDetails ( birthdayDetails : List[BirthdayDetails])
+
+case class ResendEmailInfo (memberID : String, email:String, firstname:String, lastname:String)
 
 object JsonRepo extends DefaultJsonProtocol with SprayJsonSupport {
 
@@ -131,7 +132,7 @@ object JsonRepo extends DefaultJsonProtocol with SprayJsonSupport {
   implicit val registerDtoFormats: RootJsonFormat[RegisterDto] = jsonFormat11(RegisterDto)
   implicit val errorMessageDtoFormats: RootJsonFormat[responseMessage] = jsonFormat3(responseMessage)
   implicit val registerDtoResponseDtoFormats: RootJsonFormat[RegisterDtoResponse] = jsonFormat6(RegisterDtoResponse)
-  implicit val secondSignupStepsFormats: RootJsonFormat[SecondSignupStep] = jsonFormat22(SecondSignupStep)
+
   implicit val interestFormats: RootJsonFormat[Interest] = jsonFormat2(Interest)
   implicit val personalInfoFormats: RootJsonFormat[PersonalInfo] = jsonFormat5(PersonalInfo)
   implicit val tokenIDFormats: RootJsonFormat[TokenID] = jsonFormat1(TokenID)
@@ -146,7 +147,9 @@ object JsonRepo extends DefaultJsonProtocol with SprayJsonSupport {
   implicit val userIntroFormats: RootJsonFormat[Intro] = jsonFormat5(Intro)
   implicit val sessionStatusFormats: RootJsonFormat[SessionStatus] = jsonFormat2(SessionStatus)
   implicit val dBRegisterDtoFormats: RootJsonFormat[DBRegisterDto] = jsonFormat22(DBRegisterDto)
-  implicit val experinceFormats: RootJsonFormat[Experience] = jsonFormat15(Experience)
-
+  implicit val experinceFormats: RootJsonFormat[Experience] = jsonFormat16(Experience)
+  implicit val educationFormats: RootJsonFormat[Education] = jsonFormat12(Education)
+  implicit val secondSignupStepsFormats: RootJsonFormat[SecondSignupStep] = jsonFormat22(SecondSignupStep)
+  implicit val resendInfoFormats: RootJsonFormat[ResendEmailInfo] = jsonFormat4(ResendEmailInfo)
 }
 
