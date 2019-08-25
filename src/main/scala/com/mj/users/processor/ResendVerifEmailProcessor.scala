@@ -22,8 +22,10 @@ class ResendVerifEmailProcessor extends Actor with MessageConfig {
     case (resendInfo: ResendEmailInfo) => {
       val origin = sender()
       val result = resendVerificationEmail(resendInfo)
-         origin ! responseMessage(resendInfo.memberID, "", "Email successfully resent")
-     
+         origin ! responseMessage(resendInfo.memberID, "", resendVerificationEmailSuccess)
+
     }
+
+    
   }
 }

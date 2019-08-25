@@ -14,7 +14,20 @@ import com.mashape.unirest.http.Unirest
 
 object MailGun {
 
+    def verificationEmail(message: ResendEmailInfo) = {
+        val request = Unirest.post("https://api.mailgun.net/v3/" + domainName + "/messages")
+        .basicAuth("api", apiKey)
+        //.field("content-type",  "multipart/form-data;")
+        .field("from", ""+ fromEmailName +"  "+ fromEmailAddress +"")
+        .field("to", ""+ message.email +"") //message.inviteeEmail)
+        .field("subject",  RegisterSubject)
+        .field("template", "signup")
+        .field("h:X-Mailgun-Variables", "{\"firstname\":\" " + message.firstname + " \", \"lastname\":\" " + message.lastname + " \",  \"memberID\":\""+ message.memberID + " \"}")
+        .asJson()
+    }
+
     def resendVerificationEmail(message: ResendEmailInfo) = {
+        
         val request = Unirest.post("https://api.mailgun.net/v3/" + domainName + "/messages")
         .basicAuth("api", apiKey)
         //.field("content-type",  "multipart/form-data;")
